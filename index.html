@@ -1,0 +1,2337 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#9B111E" />
+  <title>Saawariya Fashion Girl — Ladies Wear Boutique</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,600;0,700;1,600&display=swap" rel="stylesheet" />
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+            serif: ['Playfair Display', 'serif'],
+          },
+          colors: {
+            pureWhite: '#FFFFFF',
+            blushTint: '#FFF9F9',
+            blushSoft: '#FDECEC',
+            crimson: '#9B111E',
+            crimsonBright: '#B91C1C',
+            crimsonDark: '#6B0B14',
+            goldAccent: '#C59B43',
+            goldLight: '#FBF3E2',
+            charcoal: '#1F1A1C',
+            mutedText: '#5C4E53',
+          },
+          boxShadow: {
+            sober: '0 6px 22px -6px rgba(155, 17, 30, 0.08)',
+            cardHover: '0 14px 30px -8px rgba(155, 17, 30, 0.14)',
+            drawer: '0 18px 44px -10px rgba(31, 26, 28, 0.25)',
+          },
+        },
+      },
+    };
+  </script>
+
+  <style>
+    .no-scrollbar::-webkit-scrollbar {
+      display: none;
+    }
+    .no-scrollbar {
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
+    body {
+      background-color: #FFFFFF;
+      color: #1F1A1C;
+      font-family: 'Inter', sans-serif;
+      overflow-x: hidden;
+    }
+    @keyframes fadeSlideUp {
+      from { opacity: 0; transform: translateY(8px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .animate-fade-up {
+      animation: fadeSlideUp 0.22s ease-out forwards;
+    }
+  </style>
+</head>
+<body class="min-h-screen flex flex-col bg-pureWhite text-charcoal selection:bg-blushSoft selection:text-crimsonDark">
+
+  <!-- Toast Banner (replaces alert()) -->
+  <div id="toastBanner" class="fixed bottom-20 left-1/2 -translate-x-1/2 z-[120] hidden max-w-[92vw] w-max bg-crimsonDark text-pureWhite px-4 py-2.5 rounded-full shadow-drawer text-xs sm:text-sm font-medium flex items-center gap-2 border border-goldAccent/50">
+    <span class="w-2 h-2 rounded-full bg-goldAccent shrink-0"></span>
+    <span id="toastMessage">Updated</span>
+  </div>
+
+  <!-- TOP UTILITY BAR (Phone App Guide + Quick Socials) -->
+  <div class="bg-crimson text-pureWhite text-[11px] sm:text-xs">
+    <div class="max-w-7xl mx-auto px-3 sm:px-6 py-1.5 flex items-center justify-between gap-2">
+      <p id="topBannerText" class="truncate font-medium">
+        Exclusive Ladies' Wear • Sizes M to XXL • Direct WhatsApp Ordering
+      </p>
+      <button
+        type="button"
+        id="openAppGuideBtn"
+        class="shrink-0 inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-pureWhite/15 hover:bg-pureWhite/25 text-goldLight font-semibold border border-goldAccent/40 transition cursor-pointer"
+      >
+        <span>📲</span>
+        <span id="lblAddPhoneApp">Add to Home Screen</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- STICKY MAIN HEADER -->
+  <header class="sticky top-0 z-40 bg-pureWhite/95 backdrop-blur-md border-b border-crimson/15 shadow-xs">
+    <div class="max-w-7xl mx-auto px-3 sm:px-6 py-2.5">
+      <!-- Top Row: Logo + Brand Name + Language Switcher + Actions + Bag -->
+      <div class="flex items-center justify-between gap-2">
+        <!-- Circular Saawariya Logo & Title -->
+        <button type="button" id="brandLogoBtn" class="flex items-center gap-2.5 text-left group focus:outline-none min-w-0 cursor-pointer">
+          <img
+            src="logo.jpeg"
+            data-fallback="18da3ab3.png"
+            alt="Saawariya Fashion Girl Logo"
+            onerror="if(this.dataset.fallback && !this.dataset.tried){this.dataset.tried='1';this.src=this.dataset.fallback;}else{this.onerror=null;this.src='https://placehold.co/96x96/9B111E/FFFFFF?text=S';}"
+            class="w-11 h-11 sm:w-12 sm:h-12 rounded-full object-cover border-2 border-goldAccent shadow-xs shrink-0 group-hover:scale-105 transition-transform"
+          />
+          <div class="min-w-0">
+            <h1 id="headerBrandTitle" class="font-serif text-base sm:text-xl font-bold text-crimson truncate leading-tight">
+              Saawariya Fashion Girl
+            </h1>
+            <p id="headerBrandSubtitle" class="text-[10px] sm:text-[11px] font-medium text-mutedText truncate">
+              Ladies' Boutique • M to XXL
+            </p>
+          </div>
+        </button>
+
+        <!-- Right Controls: Language Switcher (EN | हिन्दी | ગુજરાતી) + Socials + Owner + Bag -->
+        <div class="flex items-center gap-1.5 sm:gap-2 shrink-0">
+          <!-- Trilingual Switcher -->
+          <div class="inline-flex items-center rounded-full bg-blushTint border border-crimson/20 p-0.5" role="group" aria-label="Language Switcher">
+            <button type="button" data-lang="en" class="lang-btn px-2 py-1 rounded-full text-[11px] font-semibold transition cursor-pointer">EN</button>
+            <button type="button" data-lang="hi" class="lang-btn px-2 py-1 rounded-full text-[11px] font-semibold transition cursor-pointer">हिन्दी</button>
+            <button type="button" data-lang="gu" class="lang-btn px-2 py-1 rounded-full text-[11px] font-semibold transition cursor-pointer">ગુજરાતી</button>
+          </div>
+
+          <!-- WhatsApp Header Button -->
+          <a
+            id="headerWhatsAppBtn"
+            href="https://wa.me/919876543210"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="hidden md:inline-flex items-center gap-1.5 px-3 py-2 rounded-full bg-blushTint hover:bg-blushSoft text-crimson border border-crimson/20 text-xs font-semibold transition"
+            title="Connect on WhatsApp"
+          >
+            <span class="w-2 h-2 rounded-full bg-emerald-600"></span>
+            <span id="lblWhatsApp">WhatsApp</span>
+          </a>
+
+          <!-- Instagram Header Button -->
+          <a
+            id="headerInstagramBtn"
+            href="https://instagram.com/saawariya_fashion_girl"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="hidden lg:inline-flex items-center gap-1.5 px-3 py-2 rounded-full bg-blushTint hover:bg-blushSoft text-crimson border border-crimson/20 text-xs font-semibold transition"
+            title="Follow on Instagram"
+          >
+            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <rect x="2" y="2" width="20" height="20" rx="5"></rect>
+              <circle cx="12" cy="12" r="4"></circle>
+              <circle cx="17.5" cy="6.5" r="1"></circle>
+            </svg>
+            <span id="lblInstagram">Instagram</span>
+          </a>
+
+          <!-- Owner / Add Item Button -->
+          <button
+            type="button"
+            id="openStoreToolsBtn"
+            class="inline-flex items-center gap-1 px-2.5 sm:px-3 py-2 rounded-full bg-blushTint hover:bg-blushSoft text-crimson border border-crimson/25 text-xs font-semibold transition cursor-pointer"
+            title="Owner / Add Item"
+          >
+            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <path d="M12 5v14M5 12h14"></path>
+            </svg>
+            <span id="lblAddStore" class="hidden sm:inline">Owner / Add Item</span>
+          </button>
+
+          <!-- Bag Button (Always uses the word "Bag") -->
+          <button
+            type="button"
+            id="openBagBtn"
+            class="inline-flex items-center gap-1.5 px-3 sm:px-4 py-2 rounded-full bg-crimson hover:bg-crimsonBright text-pureWhite text-xs font-semibold shadow-xs transition cursor-pointer"
+          >
+            <svg class="w-4 h-4 text-goldLight" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path>
+              <line x1="3" y1="6" x2="21" y2="6"></line>
+              <path d="M16 10a4 4 0 0 1-8 0"></path>
+            </svg>
+            <span id="lblBagButton">Bag</span>
+            <span id="bagCountBadge" class="inline-flex items-center justify-center min-w-[18px] h-[18px] px-1 rounded-full bg-pureWhite text-crimson text-[10px] font-bold">
+              0
+            </span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Second Row: Instant Search + Mobile Social Pills -->
+      <div class="mt-2 flex items-center gap-2">
+        <div class="relative flex-1">
+          <svg class="w-4 h-4 text-mutedText absolute left-3.5 top-1/2 -translate-y-1/2 pointer-events-none" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <circle cx="11" cy="11" r="8"></circle>
+            <path d="m21 21-4.35-4.35"></path>
+          </svg>
+          <input
+            id="searchInput"
+            type="search"
+            placeholder="Search ladies dresses, kurties, leggings, gowns, fabrics..."
+            class="w-full pl-9 pr-8 py-2 rounded-full bg-blushTint border border-crimson/20 text-xs sm:text-sm text-charcoal placeholder:text-mutedText/80 focus:outline-none focus:border-crimson focus:bg-pureWhite transition"
+          />
+          <button type="button" id="clearSearchBtn" class="hidden absolute right-3 top-1/2 -translate-y-1/2 text-mutedText hover:text-crimson text-xs font-bold px-1 cursor-pointer">
+            ✕
+          </button>
+        </div>
+
+        <a
+          id="mobileWhatsAppPill"
+          href="https://wa.me/919876543210"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="md:hidden px-3 py-2 rounded-full bg-blushTint border border-crimson/20 text-[11px] font-semibold text-crimson shrink-0"
+        >
+          WhatsApp
+        </a>
+        <a
+          id="mobileInstagramPill"
+          href="https://instagram.com/saawariya_fashion_girl"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="lg:hidden px-3 py-2 rounded-full bg-blushTint border border-crimson/20 text-[11px] font-semibold text-crimson shrink-0"
+        >
+          Insta
+        </a>
+      </div>
+    </div>
+
+    <!-- CATEGORY PILLS BAR -->
+    <nav class="border-t border-crimson/10 bg-pureWhite" aria-label="Ladies Wear Categories">
+      <div id="categoryTabsContainer" class="max-w-7xl mx-auto px-3 sm:px-6 py-2 flex items-center gap-2 overflow-x-auto no-scrollbar">
+        <!-- Rendered by JS -->
+      </div>
+    </nav>
+  </header>
+
+  <!-- MAIN STOREFRONT CONTENT -->
+  <main class="flex-1 max-w-7xl w-full mx-auto px-3 sm:px-6 py-4 sm:py-6 space-y-6 sm:space-y-9">
+
+    <!-- 1. SOBER WHITE & CRIMSON BOUTIQUE HERO WITH CIRCULAR SAAWARIYA LOGO -->
+    <section class="rounded-2xl sm:rounded-3xl bg-blushTint border border-crimson/15 p-4 sm:p-7 shadow-sober">
+      <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4 sm:gap-6">
+        <div class="flex items-start sm:items-center gap-4">
+          <img
+            src="logo.jpeg"
+            data-fallback="18da3ab3.png"
+            alt="Saawariya Circular Emblem"
+            onerror="if(this.dataset.fallback && !this.dataset.tried){this.dataset.tried='1';this.src=this.dataset.fallback;}else{this.onerror=null;this.src='https://placehold.co/112x112/9B111E/FFFFFF?text=S';}"
+            class="w-16 h-16 sm:w-22 sm:h-22 rounded-full object-cover border-2 border-goldAccent shadow-xs shrink-0"
+          />
+          <div>
+            <span id="heroTag" class="inline-block px-2.5 py-0.5 rounded-full bg-pureWhite text-crimson border border-crimson/20 text-[10px] sm:text-xs font-semibold uppercase tracking-wider mb-1.5">
+              Women-Only Boutique • Sizes M to XXL
+            </span>
+            <h2 id="heroTitle" class="font-serif text-xl sm:text-3xl font-bold text-crimson leading-snug">
+              Saawariya Fashion Girl
+            </h2>
+            <p id="heroSubtitle" class="text-xs sm:text-sm text-mutedText mt-1 max-w-2xl leading-relaxed">
+              Curated Ladies Dresses, Kurties, Leggings (Laggies), Dress Material, Designer Wear, Western Wear & Gowns. Choose your shade and size (M–XXL), add to your Bag, and order directly on WhatsApp.
+            </p>
+          </div>
+        </div>
+
+        <div class="flex flex-wrap items-center gap-2 shrink-0">
+          <a href="#newArrivalsSection" id="heroNewArrivalsBtn" class="px-4 py-2.5 rounded-xl bg-crimson hover:bg-crimsonBright text-pureWhite text-xs sm:text-sm font-semibold transition">
+            New Arrivals
+          </a>
+          <a href="#festivalOffersSection" id="heroFestivalBtn" class="px-4 py-2.5 rounded-xl bg-pureWhite hover:bg-blushSoft text-crimson border border-crimson/25 text-xs sm:text-sm font-semibold transition">
+            Festival Offers
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- 2. NEW ARRIVALS ADVERTISEMENT BANNER & SPOTLIGHT -->
+    <section id="newArrivalsSection" class="rounded-2xl sm:rounded-3xl bg-pureWhite border border-crimson/15 p-4 sm:p-6 shadow-sober space-y-4">
+      <!-- Promotional Advertisement Strip -->
+      <div class="rounded-2xl bg-blushSoft/70 border border-crimson/15 p-3.5 sm:p-4 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
+        <div>
+          <span id="newArrivalsBadge" class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-crimson text-pureWhite text-[10px] sm:text-xs font-bold uppercase tracking-wider">
+            NEW ARRIVALS • JUST LANDED
+          </span>
+          <h3 id="newArrivalsHeading" class="font-serif text-lg sm:text-2xl font-bold text-charcoal mt-1">
+            Fresh Boutique Arrivals — Studio Spotlight
+          </h3>
+          <p id="newArrivalsSub" class="text-xs sm:text-sm text-mutedText">
+            Latest pleated sharara sets, embroidered cotton kurties, designer palazzo ensembles, and floral jacket co-ords in sizes M to XXL.
+          </p>
+        </div>
+        <button type="button" id="filterNewArrivalsBtn" class="self-start sm:self-auto shrink-0 px-4 py-2 rounded-xl bg-pureWhite hover:bg-crimson hover:text-pureWhite text-crimson border border-crimson/25 text-xs font-semibold transition cursor-pointer">
+          View All in Catalog
+        </button>
+      </div>
+
+      <!-- 4 Uploaded Studio Outfits Grid -->
+      <div id="newArrivalsGrid" class="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
+        <!-- Populated via JS -->
+      </div>
+    </section>
+
+    <!-- 3. WIDE FULL-BLEED FESTIVAL OFFERS BANNER SECTION -->
+    <section id="festivalOffersSection" class="-mx-3 sm:-mx-6 px-4 sm:px-10 py-6 sm:py-9 bg-gradient-to-r from-crimsonDark via-crimson to-crimsonBright text-pureWhite border-y border-goldAccent/40 shadow-sober">
+      <div class="max-w-7xl mx-auto flex flex-col lg:flex-row lg:items-center lg:justify-between gap-5">
+        <div class="space-y-2.5 max-w-2xl">
+          <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-pureWhite/15 border border-goldAccent/60 text-goldLight text-[11px] font-semibold uppercase tracking-wider">
+            <span id="festivalBadge">Festival Offers • Festive Season Sale</span>
+          </div>
+          <h3 id="festivalTitle" class="font-serif text-2xl sm:text-4xl font-bold leading-tight text-pureWhite">
+            Grand Festive Celebration — Flat 25% to 35% Off on Kurties, Gowns & Designer Sets
+          </h3>
+          <p id="festivalDesc" class="text-xs sm:text-sm text-pureWhite/90 leading-relaxed">
+            Use code <strong class="text-goldLight underline">SAAWARIYA10</strong> on WhatsApp for extra festive privilege on 2+ outfits. Available in sizes M, L, XL & XXL with multi-color options.
+          </p>
+          <div class="flex flex-wrap gap-2 pt-1 text-[11px] sm:text-xs font-medium text-goldLight">
+            <span id="festivalOfferTag1" class="px-2.5 py-1 rounded-lg bg-pureWhite/10 border border-pureWhite/20">✓ Sizes M, L, XL, XXL</span>
+            <span id="festivalOfferTag2" class="px-2.5 py-1 rounded-lg bg-pureWhite/10 border border-pureWhite/20">✓ Multi-Color Variants</span>
+            <span id="festivalOfferTag3" class="px-2.5 py-1 rounded-lg bg-pureWhite/10 border border-pureWhite/20">✓ Bundle & Festive Deals</span>
+          </div>
+        </div>
+
+        <div class="flex flex-col sm:flex-row lg:flex-col gap-2.5 shrink-0">
+          <button type="button" id="applyFestivalFilterBtn" class="px-5 py-3 rounded-xl bg-pureWhite hover:bg-goldLight text-crimsonDark text-xs sm:text-sm font-bold shadow-xs transition cursor-pointer">
+            Explore Festival Offer Items
+          </button>
+          <a id="festivalWhatsAppEnquiryBtn" href="https://wa.me/919876543210" target="_blank" rel="noopener noreferrer" class="px-5 py-3 rounded-xl bg-pureWhite/15 hover:bg-pureWhite/25 text-pureWhite border border-pureWhite/35 text-xs sm:text-sm font-semibold text-center transition">
+            Claim Festive Deal on WhatsApp
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- 4. COMPREHENSIVE FILTER BAR & MAIN LADIES WEAR CATALOG -->
+    <section id="catalogSection" class="space-y-4">
+      <div class="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-2">
+        <div>
+          <h3 id="catalogHeading" class="font-serif text-xl sm:text-2xl font-bold text-charcoal">
+            Ladies' Wear Collection
+          </h3>
+          <p id="catalogResultCount" class="text-xs sm:text-sm text-mutedText">
+            Showing outfits
+          </p>
+        </div>
+
+        <div class="flex flex-wrap items-center gap-2">
+          <button type="button" id="toggleFilterDrawerBtn" class="sm:hidden px-3 py-1.5 rounded-xl bg-blushTint text-crimson border border-crimson/25 text-xs font-semibold cursor-pointer">
+            Filters & Price
+          </button>
+          <button type="button" id="resetAllFiltersBtn" class="hidden px-3 py-1.5 rounded-xl bg-blushSoft text-crimson text-xs font-semibold border border-crimson/20 transition cursor-pointer">
+            Reset Filters
+          </button>
+          <select id="sortSelect" aria-label="Sort products" class="px-3 py-2 rounded-xl bg-pureWhite border border-crimson/25 text-xs sm:text-sm font-medium text-charcoal focus:outline-none focus:border-crimson cursor-pointer">
+            <option value="featured">Sort: Featured</option>
+            <option value="newest">Sort: Newest First</option>
+            <option value="price-asc">Price: Low to High</option>
+            <option value="price-desc">Price: High to Low</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Filter Controls Panel -->
+      <div id="filterPanel" class="rounded-2xl bg-blushTint/80 border border-crimson/15 p-3.5 sm:p-4 space-y-3">
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
+          <!-- Size Filter (M to XXL) -->
+          <div>
+            <label for="filterSizeSelect" id="lblFilterSize" class="block text-[11px] font-bold uppercase tracking-wider text-crimson mb-1">
+              Size (M – XXL)
+            </label>
+            <select id="filterSizeSelect" class="w-full px-3 py-2 rounded-xl bg-pureWhite border border-crimson/20 text-xs sm:text-sm text-charcoal focus:outline-none focus:border-crimson cursor-pointer">
+              <option value="ALL">All Sizes (M–XXL)</option>
+              <option value="M">M</option>
+              <option value="L">L</option>
+              <option value="XL">XL</option>
+              <option value="XXL">XXL</option>
+              <option value="Unstitched 2.5m">Unstitched 2.5m (Dress Material)</option>
+            </select>
+          </div>
+
+          <!-- Fabric Type Filter -->
+          <div>
+            <label for="filterFabricSelect" id="lblFilterFabric" class="block text-[11px] font-bold uppercase tracking-wider text-crimson mb-1">
+              Fabric Used
+            </label>
+            <select id="filterFabricSelect" class="w-full px-3 py-2 rounded-xl bg-pureWhite border border-crimson/20 text-xs sm:text-sm text-charcoal focus:outline-none focus:border-crimson cursor-pointer">
+              <option value="ALL">All Fabrics</option>
+              <option value="Pure Georgette">Pure Georgette</option>
+              <option value="Combed Cotton">Combed Cotton</option>
+              <option value="Chanderi Silk">Chanderi Silk</option>
+              <option value="Silk Blend">Silk Blend</option>
+              <option value="Rayon Slub">Rayon Slub</option>
+              <option value="Organza">Organza</option>
+              <option value="4-Way Stretch Lycra">4-Way Stretch Lycra</option>
+              <option value="Crepe / Viscose">Crepe / Viscose</option>
+            </select>
+          </div>
+
+          <!-- Color Filter -->
+          <div>
+            <label for="filterColorSelect" id="lblFilterColor" class="block text-[11px] font-bold uppercase tracking-wider text-crimson mb-1">
+              Color
+            </label>
+            <select id="filterColorSelect" class="w-full px-3 py-2 rounded-xl bg-pureWhite border border-crimson/20 text-xs sm:text-sm text-charcoal focus:outline-none focus:border-crimson cursor-pointer">
+              <option value="ALL">All Colors</option>
+              <option value="Mint Green">Mint Green</option>
+              <option value="Mustard Yellow">Mustard Yellow</option>
+              <option value="Teal Green">Teal Green</option>
+              <option value="Ivory Floral">Ivory Floral</option>
+              <option value="Crimson Red">Crimson Red</option>
+              <option value="Blush Rose">Blush Rose</option>
+              <option value="Maroon">Maroon</option>
+              <option value="Navy Blue">Navy Blue</option>
+              <option value="Peach">Peach</option>
+              <option value="Lavender">Lavender</option>
+            </select>
+          </div>
+
+          <!-- Max Price Range -->
+          <div>
+            <div class="flex items-center justify-between mb-1">
+              <label for="maxPriceRange" id="lblMaxPrice" class="text-[11px] font-bold uppercase tracking-wider text-crimson">
+                Max Price
+              </label>
+              <span id="maxPriceValueLabel" class="text-xs font-bold text-charcoal">₹6,000</span>
+            </div>
+            <input id="maxPriceRange" type="range" min="400" max="6000" step="100" value="6000" class="w-full accent-crimson cursor-pointer mt-1.5" />
+          </div>
+        </div>
+      </div>
+
+      <!-- Product Grid -->
+      <div id="productGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-5">
+        <!-- Populated via JS -->
+      </div>
+
+      <!-- Empty Filter Result Box -->
+      <div id="emptyCatalogBox" class="hidden rounded-2xl bg-blushTint border border-crimson/15 p-8 text-center">
+        <p id="emptyCatalogTitle" class="font-serif text-lg font-bold text-crimson">No matching outfits found</p>
+        <p id="emptyCatalogSub" class="text-xs sm:text-sm text-mutedText mt-1">Try adjusting your category, size (M–XXL), fabric, color, or price range.</p>
+        <button type="button" id="emptyCatalogResetBtn" class="mt-4 px-4 py-2 rounded-xl bg-crimson text-pureWhite text-xs sm:text-sm font-semibold cursor-pointer">
+          Show All Ladies' Wear
+        </button>
+      </div>
+    </section>
+
+    <!-- 5. CUSTOMER FEEDBACK SECTION -->
+    <section id="feedbackSection" class="rounded-2xl sm:rounded-3xl bg-blushTint border border-crimson/15 p-4 sm:p-7 shadow-sober">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+        <!-- Write Feedback Form -->
+        <div class="lg:col-span-5 bg-pureWhite rounded-2xl p-4 sm:p-5 border border-crimson/15">
+          <h3 id="feedbackFormHeading" class="font-serif text-lg sm:text-xl font-bold text-crimson">
+            Write Feedback
+          </h3>
+          <p id="feedbackFormSub" class="text-xs text-mutedText mt-1 mb-4">
+            Share your experience with Saawariya Fashion Girl outfits, fabric comfort, and size fitting (M–XXL).
+          </p>
+
+          <form id="feedbackForm" class="space-y-3">
+            <div class="grid grid-cols-2 gap-2.5">
+              <div>
+                <label for="fbName" id="lblFbName" class="block text-xs font-semibold text-charcoal mb-1">Your Name *</label>
+                <input id="fbName" type="text" required placeholder="e.g., Priya Patel" class="w-full px-3 py-2 rounded-xl bg-blushTint/50 border border-crimson/20 text-xs sm:text-sm focus:outline-none focus:border-crimson" />
+              </div>
+              <div>
+                <label for="fbCity" id="lblFbCity" class="block text-xs font-semibold text-charcoal mb-1">City</label>
+                <input id="fbCity" type="text" placeholder="e.g., Vadodara" class="w-full px-3 py-2 rounded-xl bg-blushTint/50 border border-crimson/20 text-xs sm:text-sm focus:outline-none focus:border-crimson" />
+              </div>
+            </div>
+
+            <div class="grid grid-cols-2 gap-2.5">
+              <div>
+                <label for="fbItem" id="lblFbItem" class="block text-xs font-semibold text-charcoal mb-1">Outfit Bought</label>
+                <input id="fbItem" type="text" placeholder="e.g., Mint Sharara Set (L)" class="w-full px-3 py-2 rounded-xl bg-blushTint/50 border border-crimson/20 text-xs sm:text-sm focus:outline-none focus:border-crimson" />
+              </div>
+              <div>
+                <label for="fbRating" id="lblFbRating" class="block text-xs font-semibold text-charcoal mb-1">Rating</label>
+                <select id="fbRating" class="w-full px-3 py-2 rounded-xl bg-blushTint/50 border border-crimson/20 text-xs sm:text-sm focus:outline-none focus:border-crimson cursor-pointer">
+                  <option value="5">★★★★★ (5/5)</option>
+                  <option value="4">★★★★☆ (4/5)</option>
+                  <option value="3">★★★☆☆ (3/5)</option>
+                </select>
+              </div>
+            </div>
+
+            <div>
+              <label for="fbComment" id="lblFbComment" class="block text-xs font-semibold text-charcoal mb-1">Your Review *</label>
+              <textarea id="fbComment" rows="3" required placeholder="Tell other shoppers about the fabric, color & fit..." class="w-full px-3 py-2 rounded-xl bg-blushTint/50 border border-crimson/20 text-xs sm:text-sm focus:outline-none focus:border-crimson"></textarea>
+            </div>
+
+            <button type="submit" id="btnSubmitFeedback" class="w-full py-2.5 rounded-xl bg-crimson hover:bg-crimsonBright text-pureWhite text-xs sm:text-sm font-semibold transition cursor-pointer">
+              Submit Feedback
+            </button>
+          </form>
+        </div>
+
+        <!-- Verified Shopper Reviews List -->
+        <div class="lg:col-span-7 space-y-3">
+          <div class="flex items-center justify-between">
+            <h3 id="feedbackListHeading" class="font-serif text-lg sm:text-xl font-bold text-charcoal">
+              Customer Feedback & Reviews
+            </h3>
+            <span id="feedbackCountBadge" class="px-2.5 py-1 rounded-full bg-pureWhite border border-crimson/15 text-xs font-semibold text-crimson">
+              0 Reviews
+            </span>
+          </div>
+
+          <div id="feedbackListContainer" class="space-y-3 max-h-[430px] overflow-y-auto pr-1">
+            <!-- Populated via JS -->
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- FLOATING WHATSAPP CHAT BUTTON -->
+  <a
+    id="floatingWhatsAppBtn"
+    href="https://wa.me/919876543210"
+    target="_blank"
+    rel="noopener noreferrer"
+    aria-label="Chat on WhatsApp"
+    class="fixed bottom-4 right-4 z-40 inline-flex items-center gap-2 px-4 py-3 rounded-full bg-emerald-600 hover:bg-emerald-700 text-pureWhite shadow-drawer text-xs sm:text-sm font-bold transition"
+  >
+    <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24">
+      <path d="M20.52 3.48A11.86 11.86 0 0 0 12.06 0C5.5 0 .16 5.34.16 11.9c0 2.1.55 4.15 1.6 5.96L0 24l6.33-1.66a11.86 11.86 0 0 0 5.73 1.46h.01c6.55 0 11.89-5.34 11.89-11.9 0-3.18-1.24-6.17-3.44-8.42zM12.07 21.8h-.01a9.87 9.87 0 0 1-5.03-1.38l-.36-.21-3.76.99 1-3.66-.24-.38a9.84 9.84 0 0 1-1.51-5.26c0-5.45 4.44-9.89 9.9-9.89 2.64 0 5.13 1.03 7 2.9a9.82 9.82 0 0 1 2.9 7c0 5.46-4.44 9.89-9.89 9.89zm5.43-7.41c-.3-.15-1.76-.87-2.03-.97-.27-.1-.47-.15-.67.15-.2.3-.77.97-.94 1.17-.17.2-.35.22-.65.07-.3-.15-1.26-.46-2.4-1.48-.89-.79-1.49-1.77-1.66-2.07-.17-.3-.02-.46.13-.61.13-.13.3-.35.45-.52.15-.17.2-.3.3-.5.1-.2.05-.37-.02-.52-.08-.15-.67-1.61-.92-2.21-.24-.58-.49-.5-.67-.51h-.57c-.2 0-.52.07-.79.37-.27.3-1.04 1.02-1.04 2.48s1.07 2.88 1.22 3.08c.15.2 2.1 3.2 5.08 4.49.71.31 1.26.49 1.69.63.71.23 1.36.2 1.87.12.57-.09 1.76-.72 2.01-1.41.25-.7.25-1.29.17-1.41-.07-.13-.27-.2-.57-.35z"/>
+    </svg>
+    <span id="floatingWaLabel">WhatsApp Chat</span>
+  </a>
+
+  <!-- FOOTER WITH LOGO, WHATSAPP, INSTAGRAM & ADD TO HOME SCREEN -->
+  <footer class="bg-blushTint border-t border-crimson/15 mt-8 pb-16 sm:pb-8">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 py-6 sm:py-8">
+      <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+        <div class="flex items-center gap-3">
+          <img
+            src="logo.jpeg"
+            data-fallback="18da3ab3.png"
+            alt="Saawariya Fashion Girl Logo"
+            onerror="if(this.dataset.fallback && !this.dataset.tried){this.dataset.tried='1';this.src=this.dataset.fallback;}else{this.onerror=null;this.src='https://placehold.co/80x80/9B111E/FFFFFF?text=S';}"
+            class="w-12 h-12 rounded-full object-cover border border-goldAccent shrink-0"
+          />
+          <div>
+            <p class="font-serif text-base sm:text-lg font-bold text-crimson">Saawariya Fashion Girl</p>
+            <p id="footerNote" class="text-xs text-mutedText">
+              Ladies Dresses • Kurties • Leggings (Laggies) • Dress Material • Designer Wear • Western Wear • Gowns
+            </p>
+          </div>
+        </div>
+
+        <div class="flex flex-wrap items-center gap-2">
+          <a
+            id="footerWhatsAppBtn"
+            href="https://wa.me/9428477477"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="px-3.5 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-pureWhite text-xs font-semibold transition"
+          >
+            WhatsApp Store
+          </a>
+          <a
+            id="footerInstagramBtn"
+            href="https://instagram.com/saawariya_fashion_girl"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="px-3.5 py-2 rounded-xl bg-pureWhite hover:bg-blushSoft text-crimson border border-crimson/25 text-xs font-semibold transition"
+          >
+            Instagram
+          </a>
+          <button
+            type="button"
+            id="footerAppGuideBtn"
+            class="px-3.5 py-2 rounded-xl bg-pureWhite hover:bg-blushSoft text-crimson border border-crimson/25 text-xs font-semibold transition cursor-pointer"
+          >
+            📲 Save as Phone App
+          </button>
+          <button
+            type="button"
+            id="footerOpenStoreToolsBtn"
+            class="px-3.5 py-2 rounded-xl bg-crimson hover:bg-crimsonBright text-pureWhite text-xs font-semibold transition cursor-pointer"
+          >
+            Owner / Add Item
+          </button>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- QUICK-VIEW PRODUCT MODAL -->
+  <div id="productModal" class="fixed inset-0 z-50 hidden bg-charcoal/55 backdrop-blur-xs flex items-end sm:items-center justify-center p-0 sm:p-4">
+    <div class="bg-pureWhite w-full sm:max-w-2xl max-h-[92vh] overflow-y-auto rounded-t-3xl sm:rounded-3xl border border-crimson/20 shadow-drawer animate-fade-up">
+      <div class="sticky top-0 z-10 bg-pureWhite/95 backdrop-blur-xs px-4 sm:px-6 py-3.5 border-b border-crimson/10 flex items-center justify-between">
+        <span id="modalCategoryLabel" class="text-xs font-bold uppercase tracking-wider text-crimson">Category</span>
+        <button type="button" id="closeProductModalBtn" class="w-8 h-8 rounded-full bg-blushTint hover:bg-blushSoft text-crimson font-bold text-sm flex items-center justify-center cursor-pointer">
+          ✕
+        </button>
+      </div>
+      <div id="productModalContent" class="p-4 sm:p-6">
+        <!-- Populated via JS -->
+      </div>
+    </div>
+  </div>
+
+  <!-- SLIDE-OVER BAG DRAWER (Strictly uses "Bag", never "Cart") -->
+  <div id="bagDrawerBackdrop" class="fixed inset-0 z-50 hidden bg-charcoal/50 backdrop-blur-xs justify-end">
+    <aside class="w-full max-w-md bg-pureWhite h-full flex flex-col justify-between shadow-drawer border-l border-crimson/15 animate-fade-up">
+      <div class="px-4 sm:px-5 py-4 border-b border-crimson/15 flex items-center justify-between bg-blushTint/70">
+        <h3 id="bagDrawerTitle" class="font-serif text-lg sm:text-xl font-bold text-crimson">Your Bag</h3>
+        <button type="button" id="closeBagDrawerBtn" class="w-8 h-8 rounded-full bg-pureWhite hover:bg-blushSoft text-crimson border border-crimson/20 font-bold text-sm flex items-center justify-center cursor-pointer">
+          ✕
+        </button>
+      </div>
+
+      <div id="bagDrawerItems" class="flex-1 overflow-y-auto p-4 sm:p-5 space-y-3">
+        <!-- Populated via JS -->
+      </div>
+
+      <div id="bagDrawerFooter" class="p-4 sm:p-5 border-t border-crimson/15 bg-blushTint/60">
+        <!-- Populated via JS -->
+      </div>
+    </aside>
+  </div>
+
+  <!-- PHONE "ADD TO HOME SCREEN" GUIDE MODAL -->
+  <div id="appGuideModal" class="fixed inset-0 z-50 hidden bg-charcoal/55 backdrop-blur-xs flex items-center justify-center p-3 sm:p-4">
+    <div class="bg-pureWhite w-full max-w-md rounded-3xl border border-crimson/20 shadow-drawer p-5 sm:p-6 space-y-4 animate-fade-up">
+      <div class="flex items-center justify-between">
+        <div class="flex items-center gap-3">
+          <img
+            src="logo.jpeg"
+            data-fallback="18da3ab3.png"
+            alt="Saawariya Icon"
+            onerror="if(this.dataset.fallback && !this.dataset.tried){this.dataset.tried='1';this.src=this.dataset.fallback;}else{this.onerror=null;this.src='https://placehold.co/72x72/9B111E/FFFFFF?text=S';}"
+            class="w-12 h-12 rounded-full object-cover border-2 border-goldAccent"
+          />
+          <div>
+            <h3 class="font-serif text-lg font-bold text-crimson">Save Saawariya on Your Phone</h3>
+            <p class="text-[11px] text-mutedText">Free Web App • No Play Store Needed</p>
+          </div>
+        </div>
+        <button type="button" id="closeAppGuideBtn" class="w-8 h-8 rounded-full bg-blushTint text-crimson font-bold text-sm cursor-pointer">✕</button>
+      </div>
+
+      <div class="space-y-3 text-xs sm:text-sm text-charcoal">
+        <div class="p-3 rounded-2xl bg-blushTint border border-crimson/15">
+          <p class="font-bold text-crimson mb-1">📱 Android (Chrome)</p>
+          <p class="text-mutedText text-xs">Tap the <strong>⋮ (3 dots)</strong> at the top-right of Chrome → tap <strong>"Add to Home screen"</strong> → tap <strong>Add</strong>. The Saawariya icon appears on your phone screen!</p>
+        </div>
+        <div class="p-3 rounded-2xl bg-blushTint border border-crimson/15">
+          <p class="font-bold text-crimson mb-1">🍎 iPhone (Safari)</p>
+          <p class="text-mutedText text-xs">Tap the <strong>Share icon (□↑)</strong> at the bottom of Safari → scroll down and tap <strong>"Add to Home Screen"</strong> → tap <strong>Add</strong>.</p>
+        </div>
+      </div>
+
+      <button type="button" id="gotItAppGuideBtn" class="w-full py-2.5 rounded-xl bg-crimson hover:bg-crimsonBright text-pureWhite text-xs sm:text-sm font-semibold cursor-pointer">
+        Got It
+      </button>
+    </div>
+  </div>
+
+  <!-- OWNER / ADD ITEM & STORE SETTINGS MODAL -->
+  <div id="storeToolsModal" class="fixed inset-0 z-50 hidden bg-charcoal/55 backdrop-blur-xs flex items-center justify-center p-3 sm:p-4">
+    <div class="bg-pureWhite w-full max-w-2xl max-h-[92vh] overflow-y-auto rounded-2xl sm:rounded-3xl border border-crimson/20 shadow-drawer animate-fade-up">
+      <div class="sticky top-0 z-10 bg-pureWhite px-5 py-4 border-b border-crimson/10 flex items-center justify-between">
+        <div>
+          <h3 class="font-serif text-lg sm:text-xl font-bold text-crimson">Owner / Add Item & Shop Settings</h3>
+          <p class="text-xs text-mutedText">Configure WhatsApp & Instagram links or add new ladies' outfits with photo upload.</p>
+        </div>
+        <button type="button" id="closeStoreToolsBtn" class="w-8 h-8 rounded-full bg-blushTint hover:bg-blushSoft text-crimson font-bold text-sm flex items-center justify-center cursor-pointer">
+          ✕
+        </button>
+      </div>
+
+      <div class="p-5 space-y-6">
+        <!-- Shop Social Connections -->
+        <div class="rounded-2xl bg-blushTint p-4 border border-crimson/15 space-y-3">
+          <h4 class="text-xs font-bold uppercase tracking-wider text-crimson">WhatsApp & Instagram Connections</h4>
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+            <div>
+              <label for="cfgWhatsApp" class="block text-xs font-semibold text-charcoal mb-1">WhatsApp Number (with country code)</label>
+              <input id="cfgWhatsApp" type="tel" class="w-full px-3 py-2 rounded-xl bg-pureWhite border border-crimson/20 text-xs sm:text-sm focus:outline-none focus:border-crimson" />
+            </div>
+            <div>
+              <label for="cfgInstagram" class="block text-xs font-semibold text-charcoal mb-1">Instagram Username</label>
+              <input id="cfgInstagram" type="text" placeholder="saawariya_fashion_girl" class="w-full px-3 py-2 rounded-xl bg-pureWhite border border-crimson/20 text-xs sm:text-sm focus:outline-none focus:border-crimson" />
+            </div>
+          </div>
+          <div class="flex flex-wrap items-center justify-between gap-2 pt-1">
+            <button type="button" id="saveShopConfigBtn" class="px-4 py-2 rounded-xl bg-crimson hover:bg-crimsonBright text-pureWhite text-xs font-semibold transition cursor-pointer">
+              Save Connections
+            </button>
+            <button type="button" id="resetDefaultCatalogBtn" class="px-3 py-2 rounded-xl bg-pureWhite hover:bg-blushSoft text-crimson border border-crimson/20 text-xs font-semibold transition cursor-pointer">
+              Restore Default Catalog
+            </button>
+          </div>
+        </div>
+
+        <!-- Add New Product Form -->
+        <form id="addProductForm" class="space-y-3.5">
+          <h4 class="text-xs font-bold uppercase tracking-wider text-crimson">Add New Ladies' Wear Product</h4>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+            <div>
+              <label for="newProdTitle" class="block text-xs font-semibold text-charcoal mb-1">Product Name *</label>
+              <input id="newProdTitle" type="text" required placeholder="e.g., Crimson Georgette Anarkali Kurti" class="w-full px-3 py-2 rounded-xl bg-blushTint/50 border border-crimson/20 text-xs sm:text-sm focus:outline-none focus:border-crimson" />
+            </div>
+            <div>
+              <label for="newProdCategory" class="block text-xs font-semibold text-charcoal mb-1">Category *</label>
+              <select id="newProdCategory" class="w-full px-3 py-2 rounded-xl bg-blushTint/50 border border-crimson/20 text-xs sm:text-sm focus:outline-none focus:border-crimson cursor-pointer">
+                <option value="Ladies Dresses">Ladies Dresses</option>
+                <option value="Kurties">Kurties</option>
+                <option value="Leggings">Leggings (Laggies)</option>
+                <option value="Dress Material">Dress Material</option>
+                <option value="Designer Wear">Designer Wear</option>
+                <option value="Western Wear">Western Wear</option>
+                <option value="Gowns">Gowns</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+            <div>
+              <label for="newProdFabric" class="block text-xs font-semibold text-charcoal mb-1">Fabric Used *</label>
+              <select id="newProdFabric" class="w-full px-3 py-2 rounded-xl bg-blushTint/50 border border-crimson/20 text-xs sm:text-sm focus:outline-none focus:border-crimson cursor-pointer">
+                <option value="Pure Georgette">Pure Georgette</option>
+                <option value="Combed Cotton">Combed Cotton</option>
+                <option value="Chanderi Silk">Chanderi Silk</option>
+                <option value="Silk Blend">Silk Blend</option>
+                <option value="Rayon Slub">Rayon Slub</option>
+                <option value="Organza">Organza</option>
+                <option value="4-Way Stretch Lycra">4-Way Stretch Lycra</option>
+                <option value="Crepe / Viscose">Crepe / Viscose</option>
+              </select>
+            </div>
+            <div>
+              <label for="newProdMrp" class="block text-xs font-semibold text-charcoal mb-1">Original MRP (₹) *</label>
+              <input id="newProdMrp" type="number" min="100" step="10" required placeholder="2199" class="w-full px-3 py-2 rounded-xl bg-blushTint/50 border border-crimson/20 text-xs sm:text-sm focus:outline-none focus:border-crimson" />
+            </div>
+            <div>
+              <label for="newProdPrice" class="block text-xs font-semibold text-charcoal mb-1">Offer Price (₹) *</label>
+              <input id="newProdPrice" type="number" min="50" step="10" required placeholder="1599" class="w-full px-3 py-2 rounded-xl bg-blushTint/50 border border-crimson/20 text-xs sm:text-sm focus:outline-none focus:border-crimson" />
+            </div>
+          </div>
+
+          <div>
+            <label for="newProdColors" class="block text-xs font-semibold text-charcoal mb-1">Available Colors (comma-separated) *</label>
+            <input id="newProdColors" type="text" required value="Crimson Red, Mint Green, Blush Rose" class="w-full px-3 py-2 rounded-xl bg-blushTint/50 border border-crimson/20 text-xs sm:text-sm focus:outline-none focus:border-crimson" />
+          </div>
+
+          <div>
+            <label class="block text-xs font-semibold text-charcoal mb-1">Available Sizes (M to XXL)</label>
+            <div class="flex flex-wrap gap-2">
+              <label class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-blushTint border border-crimson/20 text-xs font-semibold cursor-pointer">
+                <input type="checkbox" value="M" checked class="new-size-chk accent-crimson" /> M
+              </label>
+              <label class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-blushTint border border-crimson/20 text-xs font-semibold cursor-pointer">
+                <input type="checkbox" value="L" checked class="new-size-chk accent-crimson" /> L
+              </label>
+              <label class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-blushTint border border-crimson/20 text-xs font-semibold cursor-pointer">
+                <input type="checkbox" value="XL" checked class="new-size-chk accent-crimson" /> XL
+              </label>
+              <label class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-blushTint border border-crimson/20 text-xs font-semibold cursor-pointer">
+                <input type="checkbox" value="XXL" checked class="new-size-chk accent-crimson" /> XXL
+              </label>
+              <label class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-blushTint border border-crimson/20 text-xs font-semibold cursor-pointer">
+                <input type="checkbox" value="Unstitched 2.5m" class="new-size-chk accent-crimson" /> Unstitched 2.5m
+              </label>
+            </div>
+          </div>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 items-start">
+            <div>
+              <label for="newProdPhotoFile" class="block text-xs font-semibold text-charcoal mb-1">Upload Photo from Phone / PC</label>
+              <input id="newProdPhotoFile" type="file" accept="image/*" class="w-full text-xs text-charcoal file:mr-2 file:py-1.5 file:px-3 file:rounded-lg file:border-0 file:bg-crimson file:text-pureWhite file:font-semibold cursor-pointer" />
+            </div>
+            <div>
+              <label for="newProdPhotoUrl" class="block text-xs font-semibold text-charcoal mb-1">Or Image URL / File Name</label>
+              <input id="newProdPhotoUrl" type="text" placeholder="Optional image link" class="w-full px-3 py-2 rounded-xl bg-blushTint/50 border border-crimson/20 text-xs sm:text-sm focus:outline-none focus:border-crimson" />
+            </div>
+          </div>
+
+          <div class="flex flex-wrap items-center gap-4 pt-1">
+            <label class="inline-flex items-center gap-2 text-xs font-semibold text-charcoal cursor-pointer">
+              <input id="newProdIsNew" type="checkbox" checked class="accent-crimson" />
+              <span>Feature in New Arrivals</span>
+            </label>
+            <label class="inline-flex items-center gap-2 text-xs font-semibold text-charcoal cursor-pointer">
+              <input id="newProdIsFestival" type="checkbox" class="accent-crimson" />
+              <span>Include in Festival Offers</span>
+            </label>
+          </div>
+
+          <button type="submit" class="w-full py-3 rounded-xl bg-crimson hover:bg-crimsonBright text-pureWhite text-xs sm:text-sm font-bold shadow-xs transition cursor-pointer">
+            Publish Product to Saawariya Fashion Girl
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // =========================================================================
+    // 1. TRILINGUAL DICTIONARY (ENGLISH | हिन्दी | ગુજરાતી)
+    // =========================================================================
+    const I18N = {
+      en: {
+        topBanner: "Exclusive Ladies' Wear • Sizes M to XXL • Direct WhatsApp Ordering",
+        addPhoneApp: 'Add to Home Screen',
+        brandTitle: 'Saawariya Fashion Girl',
+        brandSubtitle: "Ladies' Boutique • M to XXL",
+        whatsapp: 'WhatsApp',
+        instagram: 'Instagram',
+        addStore: 'Owner / Add Item',
+        bag: 'Bag',
+        searchPlaceholder: 'Search ladies dresses, kurties, leggings, gowns, fabrics...',
+        heroTag: "Women-Only Boutique • Sizes M to XXL",
+        heroSubtitle: 'Curated Ladies Dresses, Kurties, Leggings (Laggies), Dress Material, Designer Wear, Western Wear & Gowns. Choose your shade and size (M–XXL), add to your Bag, and order directly on WhatsApp.',
+        heroNewArrivals: 'New Arrivals',
+        heroFestival: 'Festival Offers',
+        newArrivalsBadge: 'NEW ARRIVALS • JUST LANDED',
+        newArrivalsHeading: 'Fresh Boutique Arrivals — Studio Spotlight',
+        newArrivalsSub: 'Latest pleated sharara sets, embroidered cotton kurties, designer palazzo ensembles, and floral jacket co-ords in sizes M to XXL.',
+        viewAllCatalog: 'View All in Catalog',
+        festivalBadge: 'Festival Offers • Festive Season Sale',
+        festivalTitle: 'Grand Festive Celebration — Flat 25% to 35% Off on Kurties, Gowns & Designer Sets',
+        festivalDesc: 'Use code SAAWARIYA10 on WhatsApp for extra festive privilege on 2+ outfits. Available in sizes M, L, XL & XXL with multi-color options.',
+        festivalTag1: '✓ Sizes M, L, XL, XXL',
+        festivalTag2: '✓ Multi-Color Variants',
+        festivalTag3: '✓ Bundle & Festive Deals',
+        shopFestival: 'Explore Festival Offer Items',
+        askFestivalWa: 'Claim Festive Deal on WhatsApp',
+        catalogHeading: "Ladies' Wear Collection",
+        resetFilters: 'Reset Filters',
+        lblSize: 'Size (M – XXL)',
+        lblFabric: 'Fabric Used',
+        lblColor: 'Color',
+        lblMaxPrice: 'Max Price',
+        feedbackFormHeading: 'Write Feedback',
+        feedbackFormSub: 'Share your experience with Saawariya Fashion Girl outfits, fabric comfort, and size fitting (M–XXL).',
+        lblFbName: 'Your Name *',
+        lblFbCity: 'City',
+        lblFbItem: 'Outfit Bought',
+        lblFbRating: 'Rating',
+        lblFbComment: 'Your Review *',
+        btnSubmitFeedback: 'Submit Feedback',
+        feedbackListHeading: 'Customer Feedback & Reviews',
+        floatingWaLabel: 'WhatsApp Chat',
+        footerNote: 'Ladies Dresses • Kurties • Leggings (Laggies) • Dress Material • Designer Wear • Western Wear • Gowns',
+        fabricLabel: 'Fabric',
+        colorLabel: 'Color',
+        sizeLabel: 'Size',
+        addToBag: 'Add to Bag',
+        detailsBtn: 'Quick View',
+        orderOnWa: 'Order on WhatsApp',
+        yourBag: 'Your Bag',
+        emptyBagText: 'Your Bag is empty. Add outfits and order directly on WhatsApp.',
+        total: 'Bag Total',
+      },
+      hi: {
+        topBanner: 'केवल लेडीज़ वियर • साइज M से XXL • सीधा व्हाट्सएप ऑर्डर',
+        addPhoneApp: 'होम स्क्रीन पर जोड़ें',
+        brandTitle: 'सांवरिया फैशन गर्ल',
+        brandSubtitle: 'लेडीज़ बुटीक • M से XXL',
+        whatsapp: 'व्हाट्सएप',
+        instagram: 'इंस्टाग्राम',
+        addStore: 'आइटम जोड़ें',
+        bag: 'Bag',
+        searchPlaceholder: 'लेडीज़ ड्रेसेस, कुर्ती, लैगीज, गाउन, फैब्रिक खोजें...',
+        heroTag: 'महिलाओं का विशेष बुटीक • साइज M से XXL',
+        heroSubtitle: 'लेडीज़ ड्रेसेस, कुर्ती, लैगीज, ड्रेस मटेरियल, डिज़ाइनर वियर, वेस्टर्न वियर और गाउन। अपना रंग और साइज (M–XXL) चुनें, Bag में डालें और व्हाट्सएप पर ऑर्डर करें।',
+        heroNewArrivals: 'नए अराइवल्स',
+        heroFestival: 'फेस्टिवल ऑफर्स',
+        newArrivalsBadge: 'नए अराइवल्स • स्टूडियो कलेक्शन',
+        newArrivalsHeading: 'नए आए लेडीज़ डिज़ाइन',
+        newArrivalsSub: 'प्लीटेड शरारा सेट, कढ़ाई वाली कॉटन कुर्ती, डिज़ाइनर प्लाज़ो और फ्लोरल जैकेट को-ऑर्ड सेट—M से XXL साइज में।',
+        viewAllCatalog: 'सभी देखें',
+        festivalBadge: 'फेस्टिवल ऑफर्स • फेस्टिव सेल',
+        festivalTitle: 'ग्रैंड फेस्टिवल सेलिब्रेशन — कुर्ती, गाउन और डिज़ाइनर सेट पर 25% से 35% तक छूट',
+        festivalDesc: 'व्हाट्सएप पर कोड SAAWARIYA10 बताएं और 2+ आउटफिट पर विशेष छूट पाएं। M, L, XL और XXL साइज में उपलब्ध।',
+        festivalTag1: '✓ साइज M, L, XL, XXL',
+        festivalTag2: '✓ मल्टी-कलर विकल्प',
+        festivalTag3: '✓ फेस्टिव बंडल ऑफर्स',
+        shopFestival: 'फेस्टिवल ऑफर देखें',
+        askFestivalWa: 'व्हाट्सएप पर ऑफर लें',
+        catalogHeading: 'लेडीज़ वियर कलेक्शन',
+        resetFilters: 'फ़िल्टर रीसेट',
+        lblSize: 'साइज (M – XXL)',
+        lblFabric: 'फैब्रिक',
+        lblColor: 'रंग',
+        lblMaxPrice: 'अधिकतम कीमत',
+        feedbackFormHeading: 'अपना फीडबैक लिखें',
+        feedbackFormSub: 'सांवरिया फैशन गर्ल के आउटफिट, फैब्रिक और फिटिंग (M–XXL) के बारे में अपना अनुभव साझा करें।',
+        lblFbName: 'आपका नाम *',
+        lblFbCity: 'शहर',
+        lblFbItem: 'खरीदा गया आउटफिट',
+        lblFbRating: 'रेटिंग',
+        lblFbComment: 'आपकी समीक्षा *',
+        btnSubmitFeedback: 'फीडबैक भेजें',
+        feedbackListHeading: 'ग्राहकों के रिव्यू',
+        floatingWaLabel: 'व्हाट्सएप चैट',
+        footerNote: 'लेडीज़ ड्रेसेस • कुर्ती • लैगीज • ड्रेस मटेरियल • डिज़ाइनर वियर • वेस्टर्न वियर • गाउन',
+        fabricLabel: 'फैब्रिक',
+        colorLabel: 'रंग',
+        sizeLabel: 'साइज',
+        addToBag: 'Bag में डालें',
+        detailsBtn: 'विवरण',
+        orderOnWa: 'व्हाट्सएप पर ऑर्डर करें',
+        yourBag: 'आपका Bag',
+        emptyBagText: 'आपका Bag खाली है। आउटफिट जोड़ें और व्हाट्सएप पर ऑर्डर करें।',
+        total: 'Bag कुल राशि',
+      },
+      gu: {
+        topBanner: 'ફક્ત લેડીઝ વેર • સાઈઝ M થી XXL • સીધો વોટ્સએપ ઓર્ડર',
+        addPhoneApp: 'હોમ સ્ક્રીન પર ઉમેરો',
+        brandTitle: 'સાંવરિયા ફેશન ગર્લ',
+        brandSubtitle: 'લેડીઝ બુટીક • M થી XXL',
+        whatsapp: 'વોટ્સએપ',
+        instagram: 'ઇન્સ્ટાગ્રામ',
+        addStore: 'આઇટમ ઉમેરો',
+        bag: 'Bag',
+        searchPlaceholder: 'લેડીઝ ડ્રેસીસ, કુર્તી, લેગીઝ, ગાઉન, કાપડ શોધો...',
+        heroTag: 'મહિલાઓનું ખાસ બુટીક • સાઈઝ M થી XXL',
+        heroSubtitle: 'લેડીઝ ડ્રેસીસ, કુર્તી, લેગીઝ, ડ્રેસ મટીરીયલ, ડિઝાઇનર વેર, વેસ્ટર્ન વેર અને ગાઉન. તમારો રંગ અને સાઈઝ (M–XXL) પસંદ કરો, Bag માં ઉમેરો અને વોટ્સએપ પર ઓર્ડર કરો.',
+        heroNewArrivals: 'નવા અરાઈવલ્સ',
+        heroFestival: 'ફેસ્ટિવલ ઓફર્સ',
+        newArrivalsBadge: 'નવા અરાઈવલ્સ • સ્ટુડિયો કલેક્શન',
+        newArrivalsHeading: 'તાજા આવેલ લેડીઝ ડિઝાઇન',
+        newArrivalsSub: 'પ્લીટેડ શરારા સેટ, એમ્બ્રોઇડરી કોટન કુર્તી, ડિઝાઇનર પ્લાઝો અને ફ્લોરલ જેકેટ સેટ—M થી XXL સાઈઝમાં.',
+        viewAllCatalog: 'બધું જુઓ',
+        festivalBadge: 'ફેસ્ટિવલ ઓફર્સ • ફેસ્ટિવ સેલ',
+        festivalTitle: 'ગ્રાન્ડ ફેસ્ટિવલ સેલિબ્રેશન — કુર્તી, ગાઉન અને ડિઝાઇનર સેટ પર 25% થી 35% સુધી છૂટ',
+        festivalDesc: 'વોટ્સએપ પર કોડ SAAWARIYA10 જણાવો અને 2+ આઉટફિટ પર ખાસ લાભ મેળવો. M, L, XL અને XXL સાઈઝમાં ઉપલબ્ધ.',
+        festivalTag1: '✓ સાઈઝ M, L, XL, XXL',
+        festivalTag2: '✓ મલ્ટી-કલર વિકલ્પ',
+        festivalTag3: '✓ ફેસ્ટિવ બંડલ ઓફર્સ',
+        shopFestival: 'ફેસ્ટિવલ ઓફર જુઓ',
+        askFestivalWa: 'વોટ્સએપ પર ઓફર મેળવો',
+        catalogHeading: 'લેડીઝ વેર કલેક્શન',
+        resetFilters: 'ફિલ્ટર રીસેટ',
+        lblSize: 'સાઈઝ (M – XXL)',
+        lblFabric: 'કાપડ',
+        lblColor: 'રંગ',
+        lblMaxPrice: 'મહત્તમ કિંમત',
+        feedbackFormHeading: 'તમારો પ્રતિભાવ લખો',
+        feedbackFormSub: 'સાંવરિયા ફેશન ગર્લના આઉટફિટ, કાપડ અને ફિટિંગ (M–XXL) વિશે તમારો અનુભવ જણાવો.',
+        lblFbName: 'તમારું નામ *',
+        lblFbCity: 'શહેર',
+        lblFbItem: 'ખરીદેલ આઉટફિટ',
+        lblFbRating: 'રેટિંગ',
+        lblFbComment: 'તમારો રિવ્યુ *',
+        btnSubmitFeedback: 'ફીડબેક મોકલો',
+        feedbackListHeading: 'ગ્રાહકોના રિવ્યુ',
+        floatingWaLabel: 'વોટ્સએપ ચેટ',
+        footerNote: 'લેડીઝ ડ્રેસીસ • કુર્તી • લેગીઝ • ડ્રેસ મટીરીયલ • ડિઝાઇનર વેર • વેસ્ટર્ન વેર • ગાઉન',
+        fabricLabel: 'કાપડ',
+        colorLabel: 'રંગ',
+        sizeLabel: 'સાઈઝ',
+        addToBag: 'Bag માં ઉમેરો',
+        detailsBtn: 'વિગત',
+        orderOnWa: 'વોટ્સએપ પર ઓર્ડર કરો',
+        yourBag: 'તમારું Bag',
+        emptyBagText: 'તમારું Bag ખાલી છે. આઉટફિટ ઉમેરી વોટ્સએપ પર ઓર્ડર કરો.',
+        total: 'Bag કુલ રકમ',
+      },
+    };
+
+    const CATEGORY_LIST = [
+      { id: 'All', en: "All Ladies' Wear", hi: 'ऑल लेडीज़ वियर', gu: 'ઓલ લેડીઝ વેર' },
+      { id: 'Ladies Dresses', en: 'Ladies Dresses', hi: 'लेडीज़ ड्रेसेस', gu: 'લેડીઝ ડ્રેસીસ' },
+      { id: 'Kurties', en: 'Kurties', hi: 'कुर्ती', gu: 'કુર્તી' },
+      { id: 'Leggings', en: 'Leggings (Laggies)', hi: 'लैगीज', gu: 'લેગીઝ' },
+      { id: 'Dress Material', en: 'Dress Material', hi: 'ड्रेस मटेरियल', gu: 'ડ્રેસ મટીરીયલ' },
+      { id: 'Designer Wear', en: 'Designer Wear', hi: 'डिज़ाइनर वियर', gu: 'ડિઝાઇનર વેર' },
+      { id: 'Western Wear', en: 'Western Wear', hi: 'वेस्टर्न वियर', gu: 'વેસ્ટર્ન વેર' },
+      { id: 'Gowns', en: 'Gowns', hi: 'गाउन', gu: 'ગાઉન' },
+    ];
+
+    const COLOR_HEX_MAP = {
+      'Mint Green': '#76C7B7',
+      'Blush Rose': '#E89AA8',
+      'Lavender': '#B8A4E3',
+      'Mustard Yellow': '#D8A31A',
+      'Maroon': '#7A1422',
+      'Olive': '#6E7B3E',
+      'Teal Green': '#1F7A78',
+      'Wine Red': '#68192B',
+      'Navy Blue': '#1E3557',
+      'Ivory Floral': '#F7F2E7',
+      'Peach Floral': '#F4B69C',
+      'Peach': '#F4B69C',
+      'Sky Blue': '#87BFE8',
+      'Crimson Red': '#9B111E',
+    };
+
+    // =========================================================================
+    // 2. CURATED CATALOG WITH YOUR 4 STUDIO OUTFITS + ALL 7 CATEGORIES
+    // =========================================================================
+    const DEFAULT_PRODUCTS = [
+      {
+        id: 'sfg-1',
+        title: 'Mint Green Pleated Sharara Suit Set with Mirror Yoke & Dupatta',
+        category: 'Kurties',
+        fabric: 'Pure Georgette',
+        mrp: 2999,
+        price: 2099,
+        sizes: ['M', 'L', 'XL', 'XXL'],
+        colors: ['Mint Green', 'Blush Rose', 'Lavender'],
+        photo: '8411db4e.jpeg',
+        fallbackPhoto: 'product4.jpeg',
+        isNewArrival: true,
+        isFestivalOffer: true,
+        fitNote: 'Graceful pleated peplum kurti paired with flared sharara & lace-bordered dupatta.',
+        careNote: 'Gentle hand wash or dry clean recommended.',
+      },
+      {
+        id: 'sfg-2',
+        title: 'Teal Green Embroidered Sleeveless Top & Printed Palazzo Set',
+        category: 'Designer Wear',
+        fabric: 'Silk Blend',
+        mrp: 3599,
+        price: 2499,
+        sizes: ['M', 'L', 'XL', 'XXL'],
+        colors: ['Teal Green', 'Wine Red', 'Navy Blue'],
+        photo: 'b3b18d61.jpeg',
+        fallbackPhoto: 'product1.jpg',
+        isNewArrival: true,
+        isFestivalOffer: true,
+        fitNote: 'Richly embroidered neckline tunic with slit hem, sheer dupatta & brocade-motif wide palazzo.',
+        careNote: 'Dry clean only to maintain silk sheen and zari embroidery.',
+      },
+      {
+        id: 'sfg-3',
+        title: 'Mustard Yellow Kurti & Pants Set with Maroon Yoke Embroidery',
+        category: 'Kurties',
+        fabric: 'Combed Cotton',
+        mrp: 1799,
+        price: 1249,
+        sizes: ['M', 'L', 'XL', 'XXL'],
+        colors: ['Mustard Yellow', 'Maroon', 'Olive'],
+        photo: 'f4cb353b.jpeg',
+        fallbackPhoto: 'product2.jpg',
+        isNewArrival: true,
+        isFestivalOffer: true,
+        fitNote: 'Breathable pure combed cotton straight kurti with traditional geometric yoke & straight trousers.',
+        careNote: 'Cold water wash with mild detergent; dry in shade.',
+      },
+      {
+        id: 'sfg-4',
+        title: 'White Floral Printed Long Jacket Co-ord Set with Palazzo',
+        category: 'Western Wear',
+        fabric: 'Crepe / Viscose',
+        mrp: 2699,
+        price: 1849,
+        sizes: ['M', 'L', 'XL', 'XXL'],
+        colors: ['Ivory Floral', 'Peach Floral', 'Sky Blue'],
+        photo: 'b52df23c.jpeg',
+        fallbackPhoto: 'product3.jpeg',
+        isNewArrival: true,
+        isFestivalOffer: false,
+        fitNote: '3-piece floral shrug jacket with tassel hem, crop blouse & flowing wide-leg palazzo.',
+        careNote: 'Delicate hand wash; light steam iron.',
+      },
+      {
+        id: 'sfg-5',
+        title: 'Crimson Rose Tiered Midi Ladies Dress',
+        category: 'Ladies Dresses',
+        fabric: 'Rayon Slub',
+        mrp: 1899,
+        price: 1299,
+        sizes: ['M', 'L', 'XL', 'XXL'],
+        colors: ['Crimson Red', 'Blush Rose', 'Peach'],
+        photo: 'https://placehold.co/500x660/FFF9F9/9B111E?text=Ladies+Dress',
+        fallbackPhoto: '',
+        isNewArrival: false,
+        isFestivalOffer: true,
+        fitNote: 'Soft-drape tiered midi dress with tailored bodice and comfortable flare.',
+        careNote: 'Gentle machine or hand wash cold.',
+      },
+      {
+        id: 'sfg-6',
+        title: '4-Way Stretch Ankle Leggings (Laggies) — Boutique Fit',
+        category: 'Leggings',
+        fabric: '4-Way Stretch Lycra',
+        mrp: 799,
+        price: 549,
+        sizes: ['M', 'L', 'XL', 'XXL'],
+        colors: ['Crimson Red', 'Maroon', 'Navy Blue', 'Mint Green', 'Mustard Yellow'],
+        photo: 'https://placehold.co/500x660/FFF9F9/9B111E?text=Leggings+%2F+Laggies',
+        fallbackPhoto: '',
+        isNewArrival: false,
+        isFestivalOffer: true,
+        fitNote: 'No-fade stretchable cotton-lycra ankle laggies with soft elasticated waistband.',
+        careNote: 'Machine wash cold; do not wring tightly.',
+      },
+      {
+        id: 'sfg-7',
+        title: 'Chanderi Silk Unstitched Dress Material with Organza Dupatta',
+        category: 'Dress Material',
+        fabric: 'Chanderi Silk',
+        mrp: 2499,
+        price: 1749,
+        sizes: ['Unstitched 2.5m', 'M', 'L', 'XL', 'XXL'],
+        colors: ['Mustard Yellow', 'Crimson Red', 'Mint Green'],
+        photo: 'https://placehold.co/500x660/FFF9F9/9B111E?text=Dress+Material',
+        fallbackPhoto: '',
+        isNewArrival: false,
+        isFestivalOffer: true,
+        fitNote: '2.5m embroidered top fabric, 2.5m bottom fabric & 2.25m dupatta — custom stitchable up to XXL.',
+        careNote: 'Dry clean or gentle hand wash separately.',
+      },
+      {
+        id: 'sfg-8',
+        title: 'Royal Crimson Georgette Floor-Length Festive Gown',
+        category: 'Gowns',
+        fabric: 'Pure Georgette',
+        mrp: 4499,
+        price: 3099,
+        sizes: ['M', 'L', 'XL', 'XXL'],
+        colors: ['Crimson Red', 'Wine Red', 'Blush Rose'],
+        photo: 'https://placehold.co/500x660/FFF9F9/9B111E?text=Festive+Gown',
+        fallbackPhoto: '',
+        isNewArrival: false,
+        isFestivalOffer: true,
+        fitNote: 'Full-flare evening & wedding reception gown with soft crepe inner lining.',
+        careNote: 'Dry clean recommended.',
+      },
+      {
+        id: 'sfg-9',
+        title: 'Blush Organza Embroidered Designer Suit Ensemble',
+        category: 'Designer Wear',
+        fabric: 'Organza',
+        mrp: 3899,
+        price: 2799,
+        sizes: ['M', 'L', 'XL', 'XXL'],
+        colors: ['Blush Rose', 'Peach', 'Lavender'],
+        photo: 'https://placehold.co/500x660/FFF9F9/9B111E?text=Designer+Wear',
+        fallbackPhoto: '',
+        isNewArrival: false,
+        isFestivalOffer: true,
+        fitNote: 'Lightweight sheer organza overlay with scalloped border dupatta and satin inner.',
+        careNote: 'Dry clean only.',
+      },
+    ];
+
+    const DEFAULT_FEEDBACK = [
+      {
+        id: 'fb-1',
+        name: 'Neha Shah',
+        city: 'Vadodara',
+        item: 'Mint Green Pleated Sharara Set (L)',
+        rating: 5,
+        comment: 'The pure georgette fall and mirror yoke look just like the photo. Ordered in 1 minute on WhatsApp from Saawariya Fashion Girl!',
+        date: '2 days ago',
+      },
+      {
+        id: 'fb-2',
+        name: 'Kavita Patel',
+        city: 'Ahmedabad',
+        item: 'Mustard Yellow Cotton Kurti Set (XL)',
+        rating: 5,
+        comment: 'Soft combed cotton and very neat embroidery. Size XL fits comfortably without shrinking.',
+        date: '5 days ago',
+      },
+      {
+        id: 'fb-3',
+        name: 'Riddhi Mehta',
+        city: 'Surat',
+        item: 'Teal Green Embroidered Top & Palazzo (M)',
+        rating: 5,
+        comment: 'Loved the multi-color choices and fabric transparency info. Highly recommended for festive shopping!',
+        date: '1 week ago',
+      },
+    ];
+
+    const STORAGE_KEYS = {
+      PRODUCTS: 'saawariya_fg_products_v2',
+      FEEDBACK: 'saawariya_fg_feedback_v2',
+      CONFIG: 'saawariya_fg_config_v2',
+      BAG: 'saawariya_fg_bag_v2',
+      LANG: 'saawariya_fg_lang_v2',
+    };
+
+    function loadJson(key, fallback) {
+      try {
+        const raw = localStorage.getItem(key);
+        return raw ? JSON.parse(raw) : fallback;
+      } catch (err) {
+        return fallback;
+      }
+    }
+
+    function saveJson(key, value) {
+      try {
+        localStorage.setItem(key, JSON.stringify(value));
+      } catch (err) {
+        // Ignore storage quota warnings
+      }
+    }
+
+    const state = {
+      lang: loadJson(STORAGE_KEYS.LANG, 'en'),
+      products: loadJson(STORAGE_KEYS.PRODUCTS, DEFAULT_PRODUCTS),
+      feedback: loadJson(STORAGE_KEYS.FEEDBACK, DEFAULT_FEEDBACK),
+      config: loadJson(STORAGE_KEYS.CONFIG, {
+        whatsapp: '919428477477',
+        instagram: 'saawariya_fashion_girl',
+      }),
+      bag: loadJson(STORAGE_KEYS.BAG, [
+        { productId: 'sfg-1', color: 'Mint Green', size: 'M', qty: 1 },
+      ]),
+      selectedCategory: 'All',
+      selectedSize: 'ALL',
+      selectedFabric: 'ALL',
+      selectedColor: 'ALL',
+      maxPrice: 6000,
+      onlyFestival: false,
+      searchQuery: '',
+      sortBy: 'featured',
+      cardSelections: {},
+      uploadedNewProdPhoto: '',
+    };
+
+    function getProductSelection(product) {
+      if (!state.cardSelections[product.id]) {
+        state.cardSelections[product.id] = {
+          color: product.colors[0] || 'Classic',
+          size: product.sizes[0] || 'M',
+        };
+      }
+      return state.cardSelections[product.id];
+    }
+
+    // =========================================================================
+    // 3. HELPERS & LANGUAGE RENDERER
+    // =========================================================================
+    function formatINR(amount) {
+      return '₹' + Number(amount || 0).toLocaleString('en-IN');
+    }
+
+    function getDiscountPercent(mrp, price) {
+      if (!mrp || mrp <= price) return 0;
+      return Math.round(((mrp - price) / mrp) * 100);
+    }
+
+    function cleanPhone(num) {
+      const digits = String(num || '').replace(/\D/g, '');
+      return digits || '919876543210';
+    }
+
+    function cleanInstaHandle(handle) {
+      return String(handle || 'saawariya_fashion_girl')
+        .replace(/^@+/, '')
+        .replace(/^https?:\/\/(www\.)?instagram\.com\//i, '')
+        .replace(/\/+$/, '')
+        .trim() || 'saawariya_fashion_girl';
+    }
+
+    function syncSocialLinks() {
+      const wa = cleanPhone(state.config.whatsapp);
+      const ig = cleanInstaHandle(state.config.instagram);
+      const waUrl = `https://wa.me/${wa}?text=${encodeURIComponent('Namaste Saawariya Fashion Girl! I would like to browse & order ladies wear.')}`;
+      const igUrl = `https://instagram.com/${ig}`;
+
+      ['headerWhatsAppBtn', 'mobileWhatsAppPill', 'festivalWhatsAppEnquiryBtn', 'floatingWhatsAppBtn', 'footerWhatsAppBtn'].forEach((id) => {
+        const el = document.getElementById(id);
+        if (el) el.href = waUrl;
+      });
+      ['headerInstagramBtn', 'mobileInstagramPill', 'footerInstagramBtn'].forEach((id) => {
+        const el = document.getElementById(id);
+        if (el) el.href = igUrl;
+      });
+    }
+
+    let toastTimer = null;
+    function showToast(msg) {
+      const banner = document.getElementById('toastBanner');
+      const text = document.getElementById('toastMessage');
+      text.textContent = msg;
+      banner.classList.remove('hidden');
+      clearTimeout(toastTimer);
+      toastTimer = setTimeout(() => banner.classList.add('hidden'), 2500);
+    }
+
+    function buildProductImageTag(prod, extraClasses = 'w-full h-full object-cover') {
+      const fb = prod.fallbackPhoto ? prod.fallbackPhoto.replace(/"/g, '&quot;') : '';
+      return `
+        <img
+          src="${prod.photo}"
+          data-fallback="${fb}"
+          alt="${prod.title.replace(/"/g, '&quot;')}"
+          onerror="if(this.dataset.fallback && !this.dataset.tried){this.dataset.tried='1';this.src=this.dataset.fallback;}else{this.onerror=null;this.src='https://placehold.co/500x660/FFF9F9/9B111E?text=Saawariya';}"
+          class="${extraClasses}"
+        />
+      `;
+    }
+
+    function applyLanguage() {
+      const t = I18N[state.lang] || I18N.en;
+      document.documentElement.lang = state.lang;
+
+      document.querySelectorAll('.lang-btn').forEach((btn) => {
+        const active = btn.dataset.lang === state.lang;
+        btn.className = `lang-btn px-2 py-1 rounded-full text-[11px] font-semibold transition cursor-pointer ${
+          active ? 'bg-crimson text-pureWhite' : 'text-charcoal hover:bg-blushSoft'
+        }`;
+      });
+
+      document.getElementById('topBannerText').textContent = t.topBanner;
+      document.getElementById('lblAddPhoneApp').textContent = t.addPhoneApp;
+      document.getElementById('headerBrandTitle').textContent = t.brandTitle;
+      document.getElementById('headerBrandSubtitle').textContent = t.brandSubtitle;
+      document.getElementById('lblWhatsApp').textContent = t.whatsapp;
+      document.getElementById('lblInstagram').textContent = t.instagram;
+      document.getElementById('lblAddStore').textContent = t.addStore;
+      document.getElementById('lblBagButton').textContent = t.bag;
+      document.getElementById('searchInput').placeholder = t.searchPlaceholder;
+      document.getElementById('heroTag').textContent = t.heroTag;
+      document.getElementById('heroSubtitle').textContent = t.heroSubtitle;
+      document.getElementById('heroNewArrivalsBtn').textContent = t.heroNewArrivals;
+      document.getElementById('heroFestivalBtn').textContent = t.heroFestival;
+      document.getElementById('newArrivalsBadge').textContent = t.newArrivalsBadge;
+      document.getElementById('newArrivalsHeading').textContent = t.newArrivalsHeading;
+      document.getElementById('newArrivalsSub').textContent = t.newArrivalsSub;
+      document.getElementById('filterNewArrivalsBtn').textContent = t.viewAllCatalog;
+      document.getElementById('festivalBadge').textContent = t.festivalBadge;
+      document.getElementById('festivalTitle').textContent = t.festivalTitle;
+      document.getElementById('festivalDesc').textContent = t.festivalDesc;
+      document.getElementById('festivalOfferTag1').textContent = t.festivalTag1;
+      document.getElementById('festivalOfferTag2').textContent = t.festivalTag2;
+      document.getElementById('festivalOfferTag3').textContent = t.festivalTag3;
+      document.getElementById('applyFestivalFilterBtn').textContent = t.shopFestival;
+      document.getElementById('festivalWhatsAppEnquiryBtn').textContent = t.askFestivalWa;
+      document.getElementById('catalogHeading').textContent = t.catalogHeading;
+      document.getElementById('resetAllFiltersBtn').textContent = t.resetFilters;
+      document.getElementById('lblFilterSize').textContent = t.lblSize;
+      document.getElementById('lblFilterFabric').textContent = t.lblFabric;
+      document.getElementById('lblFilterColor').textContent = t.lblColor;
+      document.getElementById('lblMaxPrice').textContent = t.lblMaxPrice;
+      document.getElementById('feedbackFormHeading').textContent = t.feedbackFormHeading;
+      document.getElementById('feedbackFormSub').textContent = t.feedbackFormSub;
+      document.getElementById('lblFbName').textContent = t.lblFbName;
+      document.getElementById('lblFbCity').textContent = t.lblFbCity;
+      document.getElementById('lblFbItem').textContent = t.lblFbItem;
+      document.getElementById('lblFbRating').textContent = t.lblFbRating;
+      document.getElementById('lblFbComment').textContent = t.lblFbComment;
+      document.getElementById('btnSubmitFeedback').textContent = t.btnSubmitFeedback;
+      document.getElementById('feedbackListHeading').textContent = t.feedbackListHeading;
+      document.getElementById('floatingWaLabel').textContent = t.floatingWaLabel;
+      document.getElementById('footerNote').textContent = t.footerNote;
+
+      renderCategoryTabs();
+      renderNewArrivals();
+      renderProducts();
+      renderFeedbackList();
+      updateBagBadge();
+    }
+
+    // =========================================================================
+    // 4. CATEGORY TABS, NEW ARRIVALS SPOTLIGHT & CATALOG GRID
+    // =========================================================================
+    function renderCategoryTabs() {
+      const container = document.getElementById('categoryTabsContainer');
+      container.innerHTML = CATEGORY_LIST.map((cat) => {
+        const active = state.selectedCategory === cat.id;
+        const label = cat[state.lang] || cat.en;
+        return `
+          <button
+            type="button"
+            data-cat="${cat.id}"
+            class="cat-tab shrink-0 px-3.5 py-1.5 rounded-full text-xs sm:text-sm font-semibold border transition cursor-pointer ${
+              active
+                ? 'bg-crimson text-pureWhite border-crimson shadow-2xs'
+                : 'bg-blushTint/70 text-charcoal border-crimson/15 hover:bg-blushSoft hover:border-crimson/35'
+            }"
+          >
+            ${label}
+          </button>
+        `;
+      }).join('');
+
+      container.querySelectorAll('.cat-tab').forEach((btn) => {
+        btn.addEventListener('click', () => {
+          state.selectedCategory = btn.dataset.cat;
+          renderCategoryTabs();
+          renderProducts();
+          document.getElementById('catalogSection').scrollIntoView({ behavior: 'smooth', block: 'start' });
+        });
+      });
+    }
+
+    function renderNewArrivals() {
+      const t = I18N[state.lang] || I18N.en;
+      const grid = document.getElementById('newArrivalsGrid');
+      const items = state.products.filter((p) => p.isNewArrival).slice(0, 4);
+
+      grid.innerHTML = items.map((prod) => {
+        const sel = getProductSelection(prod);
+        const activeHex = COLOR_HEX_MAP[sel.color] || '#9B111E';
+        const swatches = prod.colors.map((col) => {
+          const hex = COLOR_HEX_MAP[col] || '#9B111E';
+          const isSel = sel.color === col;
+          return `
+            <button
+              type="button"
+              data-na-swatch="${prod.id}"
+              data-na-color="${col}"
+              title="${col}"
+              class="w-4 h-4 rounded-full border cursor-pointer transition ${isSel ? 'ring-2 ring-crimson ring-offset-1 border-crimson scale-110' : 'border-charcoal/25'}"
+              style="background-color:${hex};"
+            ></button>
+          `;
+        }).join('');
+
+        return `
+          <div class="rounded-2xl bg-blushTint/65 border border-crimson/15 p-2.5 sm:p-3 flex flex-col justify-between hover:border-crimson/40 transition">
+            <div>
+              <div class="relative rounded-xl overflow-hidden bg-pureWhite aspect-[3/4] cursor-pointer" data-open-modal="${prod.id}">
+                ${buildProductImageTag(prod)}
+                <span class="absolute top-2 left-2 px-2 py-0.5 rounded-md bg-crimson text-pureWhite text-[10px] font-bold uppercase">
+                  NEW
+                </span>
+                <span class="absolute bottom-2 left-2 inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-pureWhite/95 text-charcoal border border-crimson/15 text-[10px] font-semibold">
+                  <span class="w-2 h-2 rounded-full border border-charcoal/20" style="background-color:${activeHex};"></span>
+                  ${sel.color}
+                </span>
+              </div>
+
+              <div class="mt-2 flex items-center justify-between gap-1">
+                <span class="text-[10px] font-bold uppercase tracking-wider text-crimson truncate">${prod.category}</span>
+                <span class="text-[10px] font-semibold text-mutedText shrink-0">${prod.fabric}</span>
+              </div>
+              <h4 class="font-serif text-xs sm:text-sm font-bold text-charcoal line-clamp-2 mt-0.5 cursor-pointer hover:text-crimson" data-open-modal="${prod.id}">
+                ${prod.title}
+              </h4>
+
+              <div class="mt-2 flex items-center justify-between gap-1">
+                <div class="flex items-center gap-1.5">${swatches}</div>
+                <span class="text-[10px] font-semibold text-mutedText">${sel.size}</span>
+              </div>
+            </div>
+
+            <div class="mt-2.5 pt-2 border-t border-crimson/10 flex items-center justify-between gap-1">
+              <div>
+                <span class="text-xs sm:text-sm font-bold text-crimson">${formatINR(prod.price)}</span>
+                ${prod.mrp > prod.price ? `<span class="text-[10px] text-mutedText line-through ml-1">${formatINR(prod.mrp)}</span>` : ''}
+              </div>
+              <button
+                type="button"
+                data-quick-bag="${prod.id}"
+                class="px-2.5 py-1.5 rounded-lg bg-crimson hover:bg-crimsonBright text-pureWhite text-[11px] font-semibold cursor-pointer"
+              >
+                ${t.addToBag}
+              </button>
+            </div>
+          </div>
+        `;
+      }).join('');
+
+      grid.querySelectorAll('[data-open-modal]').forEach((el) => {
+        el.addEventListener('click', () => openProductModal(el.dataset.openModal));
+      });
+      grid.querySelectorAll('[data-na-swatch]').forEach((btn) => {
+        btn.addEventListener('click', (e) => {
+          e.stopPropagation();
+          const prod = state.products.find((p) => p.id === btn.dataset.naSwatch);
+          if (!prod) return;
+          getProductSelection(prod).color = btn.dataset.naColor;
+          renderNewArrivals();
+          renderProducts();
+        });
+      });
+      grid.querySelectorAll('[data-quick-bag]').forEach((btn) => {
+        btn.addEventListener('click', () => {
+          const prod = state.products.find((p) => p.id === btn.dataset.quickBag);
+          if (!prod) return;
+          const sel = getProductSelection(prod);
+          addToBag(prod.id, sel.color, sel.size, 1);
+        });
+      });
+    }
+
+    function getFilteredProducts() {
+      const q = state.searchQuery.trim().toLowerCase();
+
+      let list = state.products.filter((prod) => {
+        const matchCat = state.selectedCategory === 'All' || prod.category === state.selectedCategory;
+        const matchSize = state.selectedSize === 'ALL' || prod.sizes.includes(state.selectedSize);
+        const matchFabric = state.selectedFabric === 'ALL' || prod.fabric === state.selectedFabric;
+        const matchColor = state.selectedColor === 'ALL' || prod.colors.includes(state.selectedColor);
+        const matchPrice = Number(prod.price) <= Number(state.maxPrice);
+        const matchFest = !state.onlyFestival || Boolean(prod.isFestivalOffer);
+
+        const matchSearch =
+          !q ||
+          prod.title.toLowerCase().includes(q) ||
+          prod.category.toLowerCase().includes(q) ||
+          prod.fabric.toLowerCase().includes(q) ||
+          prod.colors.some((c) => c.toLowerCase().includes(q)) ||
+          (q.includes('laggi') && prod.category === 'Leggings') ||
+          (q.includes('kurti') && prod.category === 'Kurties');
+
+        return matchCat && matchSize && matchFabric && matchColor && matchPrice && matchFest && matchSearch;
+      });
+
+      if (state.sortBy === 'price-asc') {
+        list = [...list].sort((a, b) => a.price - b.price);
+      } else if (state.sortBy === 'price-desc') {
+        list = [...list].sort((a, b) => b.price - a.price);
+      } else if (state.sortBy === 'newest') {
+        list = [...list].sort((a, b) => Number(Boolean(b.isNewArrival)) - Number(Boolean(a.isNewArrival)));
+      }
+
+      return list;
+    }
+
+    function renderProducts() {
+      const t = I18N[state.lang] || I18N.en;
+      const grid = document.getElementById('productGrid');
+      const emptyBox = document.getElementById('emptyCatalogBox');
+      const countEl = document.getElementById('catalogResultCount');
+      const resetBtn = document.getElementById('resetAllFiltersBtn');
+
+      const filtered = getFilteredProducts();
+      countEl.textContent = `${filtered.length} ${filtered.length === 1 ? 'outfit' : 'outfits'} ${state.onlyFestival ? '• Festival Offers' : ''}`;
+
+      const hasFilters =
+        state.selectedCategory !== 'All' ||
+        state.selectedSize !== 'ALL' ||
+        state.selectedFabric !== 'ALL' ||
+        state.selectedColor !== 'ALL' ||
+        Number(state.maxPrice) < 6000 ||
+        state.onlyFestival ||
+        state.searchQuery.trim() !== '' ||
+        state.sortBy !== 'featured';
+
+      resetBtn.classList.toggle('hidden', !hasFilters);
+
+      if (filtered.length === 0) {
+        grid.innerHTML = '';
+        emptyBox.classList.remove('hidden');
+        return;
+      }
+
+      emptyBox.classList.add('hidden');
+
+      grid.innerHTML = filtered.map((prod) => {
+        const sel = getProductSelection(prod);
+        const discount = getDiscountPercent(prod.mrp, prod.price);
+        const activeHex = COLOR_HEX_MAP[sel.color] || '#9B111E';
+
+        const swatchesHtml = prod.colors.map((col) => {
+          const isSelected = sel.color === col;
+          const hex = COLOR_HEX_MAP[col] || '#9B111E';
+          return `
+            <button
+              type="button"
+              data-swatch-prod="${prod.id}"
+              data-swatch-color="${col}"
+              title="${col}"
+              aria-label="Select color ${col}"
+              class="w-5 h-5 rounded-full border transition cursor-pointer ${
+                isSelected ? 'ring-2 ring-crimson ring-offset-1 border-crimson scale-110' : 'border-charcoal/25 opacity-85 hover:opacity-100'
+              }"
+              style="background-color: ${hex};"
+            ></button>
+          `;
+        }).join('');
+
+        const sizesHtml = prod.sizes.map((sz) => {
+          const active = sel.size === sz;
+          return `
+            <button
+              type="button"
+              data-size-prod="${prod.id}"
+              data-size-val="${sz}"
+              class="px-2 py-1 rounded-lg text-[11px] font-semibold border transition cursor-pointer ${
+                active
+                  ? 'bg-crimson text-pureWhite border-crimson'
+                  : 'bg-pureWhite text-charcoal border-crimson/20 hover:border-crimson'
+              }"
+            >
+              ${sz}
+            </button>
+          `;
+        }).join('');
+
+        return `
+          <article class="rounded-2xl bg-pureWhite border border-crimson/15 hover:border-crimson/40 shadow-sober hover:shadow-cardHover transition flex flex-col justify-between overflow-hidden">
+            <div class="p-3">
+              <div class="relative rounded-xl overflow-hidden bg-blushTint aspect-[3/4] cursor-pointer" data-qv="${prod.id}">
+                ${buildProductImageTag(prod)}
+                ${
+                  discount > 0
+                    ? `<span class="absolute top-2 left-2 px-2 py-0.5 rounded-md bg-crimson text-pureWhite text-[10px] font-bold">
+                        ${discount}% OFF
+                      </span>`
+                    : ''
+                }
+                ${
+                  prod.isFestivalOffer
+                    ? `<span class="absolute top-2 right-2 px-2 py-0.5 rounded-md bg-goldLight text-crimsonDark border border-goldAccent/60 text-[10px] font-bold">
+                        FESTIVE
+                      </span>`
+                    : ''
+                }
+                <span class="absolute bottom-2 left-2 inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-pureWhite/95 text-charcoal border border-crimson/15 text-[10px] font-semibold shadow-2xs">
+                  <span class="w-2.5 h-2.5 rounded-full border border-charcoal/25" style="background-color:${activeHex};"></span>
+                  ${sel.color}
+                </span>
+              </div>
+
+              <!-- Category & Exact Fabric Used -->
+              <div class="mt-2.5 flex items-center justify-between gap-1.5">
+                <span class="text-[10px] font-bold uppercase tracking-wider text-crimson truncate">
+                  ${prod.category}
+                </span>
+                <span class="px-2 py-0.5 rounded-md bg-blushTint border border-crimson/15 text-[10px] font-semibold text-charcoal shrink-0">
+                  ${t.fabricLabel}: ${prod.fabric}
+                </span>
+              </div>
+
+              <h4 class="font-serif text-sm sm:text-base font-bold text-charcoal leading-snug mt-1 line-clamp-2 cursor-pointer hover:text-crimson transition" data-qv="${prod.id}">
+                ${prod.title}
+              </h4>
+
+              <!-- Multi-Color Variants inside a Single Product -->
+              <div class="mt-2.5">
+                <div class="flex items-center justify-between text-[11px] mb-1">
+                  <span class="text-mutedText font-medium">${t.colorLabel}: <strong class="text-charcoal">${sel.color}</strong></span>
+                  <span class="text-[10px] text-crimson font-semibold">${prod.colors.length} shades</span>
+                </div>
+                <div class="flex items-center gap-2">
+                  ${swatchesHtml}
+                </div>
+              </div>
+
+              <!-- Sizes M - XXL -->
+              <div class="mt-2.5">
+                <span class="block text-[10px] font-bold uppercase tracking-wider text-mutedText mb-1">${t.sizeLabel}</span>
+                <div class="flex flex-wrap gap-1.5">
+                  ${sizesHtml}
+                </div>
+              </div>
+            </div>
+
+            <!-- Price & Actions -->
+            <div class="px-3 pb-3 pt-2 border-t border-crimson/10 bg-blushTint/40">
+              <div class="flex items-baseline gap-2 mb-2">
+                <span class="text-sm sm:text-base font-bold text-crimson">${formatINR(prod.price)}</span>
+                ${
+                  prod.mrp > prod.price
+                    ? `<span class="text-xs text-mutedText line-through">${formatINR(prod.mrp)}</span>`
+                    : ''
+                }
+              </div>
+
+              <div class="flex items-center gap-1.5">
+                <button
+                  type="button"
+                  data-qv="${prod.id}"
+                  class="flex-1 py-2 px-2 rounded-xl bg-pureWhite hover:bg-blushSoft text-crimson border border-crimson/25 text-xs font-semibold transition cursor-pointer"
+                >
+                  ${t.detailsBtn}
+                </button>
+                <button
+                  type="button"
+                  data-card-add="${prod.id}"
+                  class="flex-1 py-2 px-2 rounded-xl bg-crimson hover:bg-crimsonBright text-pureWhite text-xs font-semibold transition cursor-pointer"
+                >
+                  ${t.addToBag}
+                </button>
+              </div>
+            </div>
+          </article>
+        `;
+      }).join('');
+
+      // Bind color swatch clicks
+      grid.querySelectorAll('[data-swatch-prod]').forEach((btn) => {
+        btn.addEventListener('click', (e) => {
+          e.stopPropagation();
+          const pid = btn.dataset.swatchProd;
+          const col = btn.dataset.swatchColor;
+          const prod = state.products.find((p) => p.id === pid);
+          if (!prod) return;
+          getProductSelection(prod).color = col;
+          renderProducts();
+          renderNewArrivals();
+        });
+      });
+
+      // Bind size clicks
+      grid.querySelectorAll('[data-size-prod]').forEach((btn) => {
+        btn.addEventListener('click', (e) => {
+          e.stopPropagation();
+          const pid = btn.dataset.sizeProd;
+          const sz = btn.dataset.sizeVal;
+          const prod = state.products.find((p) => p.id === pid);
+          if (!prod) return;
+          getProductSelection(prod).size = sz;
+          renderProducts();
+          renderNewArrivals();
+        });
+      });
+
+      // Bind Quick View modal
+      grid.querySelectorAll('[data-qv]').forEach((el) => {
+        el.addEventListener('click', () => openProductModal(el.dataset.qv));
+      });
+
+      // Bind Add to Bag
+      grid.querySelectorAll('[data-card-add]').forEach((btn) => {
+        btn.addEventListener('click', () => {
+          const prod = state.products.find((p) => p.id === btn.dataset.cardAdd);
+          if (!prod) return;
+          const sel = getProductSelection(prod);
+          addToBag(prod.id, sel.color, sel.size, 1);
+        });
+      });
+    }
+
+    // =========================================================================
+    // 5. QUICK-VIEW PRODUCT MODAL
+    // =========================================================================
+    function openProductModal(productId) {
+      const prod = state.products.find((p) => p.id === productId);
+      if (!prod) return;
+      const t = I18N[state.lang] || I18N.en;
+      const sel = getProductSelection(prod);
+      const discount = getDiscountPercent(prod.mrp, prod.price);
+      const activeHex = COLOR_HEX_MAP[sel.color] || '#9B111E';
+
+      document.getElementById('modalCategoryLabel').textContent = `${prod.category} • ${t.fabricLabel}: ${prod.fabric}`;
+
+      const colorsButtons = prod.colors.map((col) => {
+        const active = sel.color === col;
+        const hex = COLOR_HEX_MAP[col] || '#9B111E';
+        return `
+          <button
+            type="button"
+            data-m-color="${col}"
+            class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-semibold border transition cursor-pointer ${
+              active ? 'bg-crimson text-pureWhite border-crimson' : 'bg-blushTint/60 text-charcoal border-crimson/20 hover:border-crimson'
+            }"
+          >
+            <span class="w-3 h-3 rounded-full border border-charcoal/25" style="background-color:${hex}"></span>
+            <span>${col}</span>
+          </button>
+        `;
+      }).join('');
+
+      const sizesButtons = prod.sizes.map((sz) => {
+        const active = sel.size === sz;
+        return `
+          <button
+            type="button"
+            data-m-size="${sz}"
+            class="px-3 py-1.5 rounded-xl text-xs font-semibold border transition cursor-pointer ${
+              active ? 'bg-crimson text-pureWhite border-crimson' : 'bg-blushTint/60 text-charcoal border-crimson/20 hover:border-crimson'
+            }"
+          >
+            ${sz}
+          </button>
+        `;
+      }).join('');
+
+      const waItemUrl = `https://wa.me/${cleanPhone(state.config.whatsapp)}?text=${encodeURIComponent(
+        `Namaste Saawariya Fashion Girl! I would like to order:\n• Item: ${prod.title}\n• Category: ${prod.category}\n• Fabric: ${prod.fabric}\n• Color: ${sel.color}\n• Size: ${sel.size}\n• Price: ${formatINR(prod.price)}`
+      )}`;
+
+      document.getElementById('productModalContent').innerHTML = `
+        <div class="grid grid-cols-1 sm:grid-cols-12 gap-5">
+          <div class="sm:col-span-5">
+            <div class="relative rounded-2xl overflow-hidden bg-blushTint border border-crimson/15 aspect-[3/4]">
+              ${buildProductImageTag(prod)}
+              <span class="absolute bottom-2.5 left-2.5 inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-pureWhite/95 text-charcoal border border-crimson/20 text-xs font-semibold">
+                <span class="w-3 h-3 rounded-full border border-charcoal/25" style="background-color:${activeHex};"></span>
+                ${sel.color}
+              </span>
+            </div>
+          </div>
+
+          <div class="sm:col-span-7 flex flex-col justify-between space-y-4">
+            <div>
+              <h3 class="font-serif text-lg sm:text-2xl font-bold text-charcoal leading-snug">${prod.title}</h3>
+
+              <div class="flex items-baseline gap-2.5 mt-2">
+                <span class="text-xl font-bold text-crimson">${formatINR(prod.price)}</span>
+                ${
+                  prod.mrp > prod.price
+                    ? `<span class="text-sm text-mutedText line-through">${formatINR(prod.mrp)}</span>
+                       <span class="px-2 py-0.5 rounded-full bg-blushSoft text-crimson text-xs font-bold">${discount}% OFF</span>`
+                    : ''
+                }
+              </div>
+
+              <div class="mt-3 p-3 rounded-xl bg-blushTint border border-crimson/15 text-xs space-y-1">
+                <p><strong class="text-crimson">${t.fabricLabel}:</strong> ${prod.fabric}</p>
+                <p><strong class="text-crimson">Fit & Detail:</strong> ${prod.fitNote || 'Comfortable boutique fit.'}</p>
+                <p><strong class="text-crimson">Wash Care:</strong> ${prod.careNote || 'Gentle care recommended.'}</p>
+              </div>
+
+              <div class="mt-3.5">
+                <p class="text-xs font-bold uppercase tracking-wider text-crimson mb-1.5">${t.colorLabel}: ${sel.color}</p>
+                <div class="flex flex-wrap gap-2">${colorsButtons}</div>
+              </div>
+
+              <div class="mt-3.5">
+                <p class="text-xs font-bold uppercase tracking-wider text-crimson mb-1.5">${t.sizeLabel}: ${sel.size}</p>
+                <div class="flex flex-wrap gap-2">${sizesButtons}</div>
+              </div>
+            </div>
+
+            <div class="flex flex-col sm:flex-row gap-2 pt-2">
+              <button type="button" id="modalAddBagBtn" class="flex-1 py-3 px-4 rounded-xl bg-crimson hover:bg-crimsonBright text-pureWhite text-xs sm:text-sm font-bold transition cursor-pointer">
+                ${t.addToBag} • ${formatINR(prod.price)}
+              </button>
+              <a href="${waItemUrl}" target="_blank" rel="noopener noreferrer" class="py-3 px-4 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-pureWhite text-xs sm:text-sm font-semibold text-center transition">
+                ${t.orderOnWa}
+              </a>
+            </div>
+          </div>
+        </div>
+      `;
+
+      document.querySelectorAll('[data-m-color]').forEach((btn) => {
+        btn.addEventListener('click', () => {
+          sel.color = btn.dataset.mColor;
+          renderProducts();
+          renderNewArrivals();
+          openProductModal(prod.id);
+        });
+      });
+
+      document.querySelectorAll('[data-m-size]').forEach((btn) => {
+        btn.addEventListener('click', () => {
+          sel.size = btn.dataset.mSize;
+          renderProducts();
+          renderNewArrivals();
+          openProductModal(prod.id);
+        });
+      });
+
+      document.getElementById('modalAddBagBtn').addEventListener('click', () => {
+        addToBag(prod.id, sel.color, sel.size, 1);
+        closeProductModal();
+      });
+
+      document.getElementById('productModal').classList.remove('hidden');
+    }
+
+    function closeProductModal() {
+      document.getElementById('productModal').classList.add('hidden');
+    }
+
+    // =========================================================================
+    // 6. BAG DRAWER & WHATSAPP ORDER CHECKOUT
+    // =========================================================================
+    function updateBagBadge() {
+      const count = state.bag.reduce((sum, item) => sum + Number(item.qty || 1), 0);
+      document.getElementById('bagCountBadge').textContent = count;
+      saveJson(STORAGE_KEYS.BAG, state.bag);
+    }
+
+    function addToBag(productId, color, size, qty = 1) {
+      const prod = state.products.find((p) => p.id === productId);
+      if (!prod) return;
+
+      const existing = state.bag.find(
+        (b) => b.productId === productId && b.color === color && b.size === size
+      );
+      if (existing) {
+        existing.qty += qty;
+      } else {
+        state.bag.push({ productId, color, size, qty });
+      }
+      updateBagBadge();
+      showToast(`${prod.title.slice(0, 26)}... (${color}, ${size}) added to Bag`);
+    }
+
+    function openBagDrawer() {
+      renderBagDrawer();
+      const backdrop = document.getElementById('bagDrawerBackdrop');
+      backdrop.classList.remove('hidden');
+      backdrop.classList.add('flex');
+    }
+
+    function closeBagDrawer() {
+      const backdrop = document.getElementById('bagDrawerBackdrop');
+      backdrop.classList.add('hidden');
+      backdrop.classList.remove('flex');
+    }
+
+    function renderBagDrawer() {
+      const t = I18N[state.lang] || I18N.en;
+      const itemsContainer = document.getElementById('bagDrawerItems');
+      const footerContainer = document.getElementById('bagDrawerFooter');
+      document.getElementById('bagDrawerTitle').textContent = `${t.yourBag} (${state.bag.reduce((s, x) => s + x.qty, 0)})`;
+
+      if (state.bag.length === 0) {
+        itemsContainer.innerHTML = `
+          <div class="text-center py-12 px-4">
+            <p class="font-serif text-base font-bold text-crimson">${t.emptyBagText}</p>
+          </div>
+        `;
+        footerContainer.innerHTML = `
+          <button type="button" id="bagKeepShoppingBtn" class="w-full py-2.5 rounded-xl bg-crimson text-pureWhite text-xs sm:text-sm font-semibold cursor-pointer">
+            ${t.viewAllCatalog}
+          </button>
+        `;
+        footerContainer.querySelector('#bagKeepShoppingBtn').addEventListener('click', closeBagDrawer);
+        return;
+      }
+
+      let subtotal = 0;
+
+      itemsContainer.innerHTML = state.bag.map((entry, idx) => {
+        const prod = state.products.find((p) => p.id === entry.productId);
+        if (!prod) return '';
+        const lineTotal = prod.price * entry.qty;
+        subtotal += lineTotal;
+        const hex = COLOR_HEX_MAP[entry.color] || '#9B111E';
+
+        const sizeOptions = prod.sizes.map((sz) => `<option value="${sz}" ${entry.size === sz ? 'selected' : ''}>${sz}</option>`).join('');
+
+        return `
+          <div class="rounded-2xl bg-blushTint/65 border border-crimson/15 p-3 flex gap-3">
+            <div class="w-16 h-20 rounded-xl overflow-hidden shrink-0 border border-crimson/10 bg-pureWhite">
+              ${buildProductImageTag(prod)}
+            </div>
+            <div class="flex-1 min-w-0">
+              <h4 class="font-serif text-xs sm:text-sm font-bold text-charcoal truncate">${prod.title}</h4>
+              <div class="flex items-center gap-1.5 text-[11px] text-mutedText mt-0.5">
+                <span class="w-2.5 h-2.5 rounded-full border border-charcoal/25" style="background-color:${hex};"></span>
+                <span><strong class="text-charcoal">${entry.color}</strong> • ${prod.fabric}</span>
+              </div>
+
+              <div class="flex items-center justify-between gap-2 mt-2">
+                <select data-bag-size="${idx}" class="px-2 py-1 rounded-lg bg-pureWhite border border-crimson/20 text-xs font-semibold text-charcoal cursor-pointer">
+                  ${sizeOptions}
+                </select>
+
+                <div class="inline-flex items-center rounded-lg bg-pureWhite border border-crimson/20">
+                  <button type="button" data-bag-dec="${idx}" class="px-2 py-0.5 text-xs font-bold text-crimson cursor-pointer">−</button>
+                  <span class="px-2 py-0.5 text-xs font-semibold">${entry.qty}</span>
+                  <button type="button" data-bag-inc="${idx}" class="px-2 py-0.5 text-xs font-bold text-crimson cursor-pointer">+</button>
+                </div>
+
+                <span class="text-xs sm:text-sm font-bold text-crimson">${formatINR(lineTotal)}</span>
+              </div>
+            </div>
+          </div>
+        `;
+      }).join('');
+
+      itemsContainer.insertAdjacentHTML(
+        'beforeend',
+        `
+        <div class="rounded-2xl bg-blushTint/50 border border-crimson/15 p-3 space-y-2 mt-3">
+          <p class="text-[11px] font-bold uppercase tracking-wider text-crimson">Delivery Details for WhatsApp</p>
+          <input id="waCustomerName" type="text" placeholder="Your Full Name (optional)" class="w-full px-3 py-2 rounded-xl bg-pureWhite border border-crimson/20 text-xs focus:outline-none focus:border-crimson" />
+          <input id="waCustomerAddress" type="text" placeholder="City / Area / Delivery Address (optional)" class="w-full px-3 py-2 rounded-xl bg-pureWhite border border-crimson/20 text-xs focus:outline-none focus:border-crimson" />
+        </div>
+        `
+      );
+
+      footerContainer.innerHTML = `
+        <div class="flex items-center justify-between text-sm font-bold text-charcoal mb-3">
+          <span>${t.total}</span>
+          <span class="text-crimson text-base">${formatINR(subtotal)}</span>
+        </div>
+        <button type="button" id="sendBagWhatsAppBtn" class="w-full py-3 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-pureWhite text-xs sm:text-sm font-bold shadow-xs transition cursor-pointer">
+          ${t.orderOnWa} • ${formatINR(subtotal)}
+        </button>
+      `;
+
+      itemsContainer.querySelectorAll('[data-bag-size]').forEach((selEl) => {
+        selEl.addEventListener('change', () => {
+          const i = Number(selEl.dataset.bagSize);
+          if (state.bag[i]) {
+            state.bag[i].size = selEl.value;
+            updateBagBadge();
+            renderBagDrawer();
+          }
+        });
+      });
+
+      itemsContainer.querySelectorAll('[data-bag-dec]').forEach((btn) => {
+        btn.addEventListener('click', () => {
+          const i = Number(btn.dataset.bagDec);
+          if (!state.bag[i]) return;
+          state.bag[i].qty -= 1;
+          if (state.bag[i].qty <= 0) state.bag.splice(i, 1);
+          updateBagBadge();
+          renderBagDrawer();
+        });
+      });
+
+      itemsContainer.querySelectorAll('[data-bag-inc]').forEach((btn) => {
+        btn.addEventListener('click', () => {
+          const i = Number(btn.dataset.bagInc);
+          if (state.bag[i]) {
+            state.bag[i].qty += 1;
+            updateBagBadge();
+            renderBagDrawer();
+          }
+        });
+      });
+
+      footerContainer.querySelector('#sendBagWhatsAppBtn').addEventListener('click', () => {
+        const custName = (document.getElementById('waCustomerName')?.value || '').trim();
+        const custAddr = (document.getElementById('waCustomerAddress')?.value || '').trim();
+
+        const lines = [
+          'Namaste Saawariya Fashion Girl! Order from my Bag:',
+          '',
+        ];
+
+        state.bag.forEach((entry, idx) => {
+          const prod = state.products.find((p) => p.id === entry.productId);
+          if (!prod) return;
+          lines.push(
+            `${idx + 1}. ${prod.title}\n   Category: ${prod.category} | Fabric: ${prod.fabric}\n   Color: ${entry.color} | Size: ${entry.size} | Qty: ${entry.qty} = ${formatINR(prod.price * entry.qty)}`
+          );
+        });
+
+        lines.push('');
+        lines.push(`Bag Total: ${formatINR(subtotal)}`);
+        if (custName) lines.push(`Customer Name: ${custName}`);
+        if (custAddr) lines.push(`City / Address: ${custAddr}`);
+
+        const url = `https://wa.me/${cleanPhone(state.config.whatsapp)}?text=${encodeURIComponent(lines.join('\n'))}`;
+        window.open(url, '_blank', 'noopener,noreferrer');
+        showToast('Opening WhatsApp with your Bag order!');
+      });
+    }
+
+    // =========================================================================
+    // 7. CUSTOMER FEEDBACK SECTION
+    // =========================================================================
+    function renderFeedbackList() {
+      const container = document.getElementById('feedbackListContainer');
+      const badge = document.getElementById('feedbackCountBadge');
+      badge.textContent = `${state.feedback.length} ${state.feedback.length === 1 ? 'Review' : 'Reviews'}`;
+
+      if (state.feedback.length === 0) {
+        container.innerHTML = `
+          <div class="rounded-2xl bg-pureWhite border border-crimson/15 p-5 text-center text-xs text-mutedText">
+            No reviews yet. Be the first to write feedback!
+          </div>
+        `;
+        return;
+      }
+
+      container.innerHTML = state.feedback.map((fb) => {
+        const stars = '★'.repeat(Number(fb.rating || 5)) + '☆'.repeat(5 - Number(fb.rating || 5));
+        return `
+          <div class="rounded-2xl bg-pureWhite border border-crimson/15 p-4 shadow-2xs">
+            <div class="flex items-center justify-between gap-2">
+              <div>
+                <p class="font-bold text-xs sm:text-sm text-charcoal">
+                  ${fb.name} ${fb.city ? `<span class="text-mutedText font-normal">• ${fb.city}</span>` : ''}
+                </p>
+                ${fb.item ? `<p class="text-[11px] text-crimson font-medium">${fb.item}</p>` : ''}
+              </div>
+              <div class="text-right shrink-0">
+                <span class="text-xs text-goldAccent font-bold tracking-tight">${stars}</span>
+                <p class="text-[10px] text-mutedText">${fb.date || 'Verified Shopper'}</p>
+              </div>
+            </div>
+            <p class="text-xs sm:text-sm text-charcoal/90 mt-2 leading-relaxed">${fb.comment}</p>
+          </div>
+        `;
+      }).join('');
+    }
+
+    // =========================================================================
+    // 8. MODALS & INITIALIZATION
+    // =========================================================================
+    function openStoreToolsModal() {
+      document.getElementById('cfgWhatsApp').value = state.config.whatsapp;
+      document.getElementById('cfgInstagram').value = state.config.instagram;
+      document.getElementById('storeToolsModal').classList.remove('hidden');
+    }
+
+    function closeStoreToolsModal() {
+      document.getElementById('storeToolsModal').classList.add('hidden');
+    }
+
+    function resetFilters() {
+      state.selectedCategory = 'All';
+      state.selectedSize = 'ALL';
+      state.selectedFabric = 'ALL';
+      state.selectedColor = 'ALL';
+      state.maxPrice = 6000;
+      state.onlyFestival = false;
+      state.searchQuery = '';
+      state.sortBy = 'featured';
+
+      document.getElementById('searchInput').value = '';
+      document.getElementById('clearSearchBtn').classList.add('hidden');
+      document.getElementById('filterSizeSelect').value = 'ALL';
+      document.getElementById('filterFabricSelect').value = 'ALL';
+      document.getElementById('filterColorSelect').value = 'ALL';
+      document.getElementById('maxPriceRange').value = '6000';
+      document.getElementById('maxPriceValueLabel').textContent = '₹6,000';
+      document.getElementById('sortSelect').value = 'featured';
+
+      renderCategoryTabs();
+      renderProducts();
+    }
+
+    function init() {
+      syncSocialLinks();
+      applyLanguage();
+
+      // Language Switcher
+      document.querySelectorAll('.lang-btn').forEach((btn) => {
+        btn.addEventListener('click', () => {
+          state.lang = btn.dataset.lang;
+          saveJson(STORAGE_KEYS.LANG, state.lang);
+          applyLanguage();
+        });
+      });
+
+      // Brand Logo Click
+      document.getElementById('brandLogoBtn').addEventListener('click', () => {
+        resetFilters();
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      });
+
+      // Search Input
+      const searchInput = document.getElementById('searchInput');
+      const clearSearchBtn = document.getElementById('clearSearchBtn');
+      searchInput.addEventListener('input', (e) => {
+        state.searchQuery = e.target.value;
+        clearSearchBtn.classList.toggle('hidden', !state.searchQuery);
+        renderProducts();
+      });
+      clearSearchBtn.addEventListener('click', () => {
+        state.searchQuery = '';
+        searchInput.value = '';
+        clearSearchBtn.classList.add('hidden');
+        renderProducts();
+      });
+
+      // New Arrivals & Festival Offer Shortcuts
+      document.getElementById('filterNewArrivalsBtn').addEventListener('click', () => {
+        resetFilters();
+        state.sortBy = 'newest';
+        document.getElementById('sortSelect').value = 'newest';
+        renderProducts();
+        document.getElementById('catalogSection').scrollIntoView({ behavior: 'smooth' });
+      });
+
+      document.getElementById('applyFestivalFilterBtn').addEventListener('click', () => {
+        state.onlyFestival = true;
+        renderProducts();
+        document.getElementById('catalogSection').scrollIntoView({ behavior: 'smooth' });
+      });
+
+      // Mobile Filter Toggle
+      document.getElementById('toggleFilterDrawerBtn').addEventListener('click', () => {
+        const panel = document.getElementById('filterPanel');
+        panel.classList.toggle('hidden');
+      });
+
+      // Filters
+      document.getElementById('filterSizeSelect').addEventListener('change', (e) => {
+        state.selectedSize = e.target.value;
+        renderProducts();
+      });
+      document.getElementById('filterFabricSelect').addEventListener('change', (e) => {
+        state.selectedFabric = e.target.value;
+        renderProducts();
+      });
+      document.getElementById('filterColorSelect').addEventListener('change', (e) => {
+        state.selectedColor = e.target.value;
+        renderProducts();
+      });
+      document.getElementById('maxPriceRange').addEventListener('input', (e) => {
+        state.maxPrice = Number(e.target.value);
+        document.getElementById('maxPriceValueLabel').textContent = formatINR(state.maxPrice);
+        renderProducts();
+      });
+      document.getElementById('sortSelect').addEventListener('change', (e) => {
+        state.sortBy = e.target.value;
+        renderProducts();
+      });
+
+      document.getElementById('resetAllFiltersBtn').addEventListener('click', resetFilters);
+      document.getElementById('emptyCatalogResetBtn').addEventListener('click', resetFilters);
+
+      // Modals & Drawers
+      document.getElementById('closeProductModalBtn').addEventListener('click', closeProductModal);
+      document.getElementById('productModal').addEventListener('click', (e) => {
+        if (e.target.id === 'productModal') closeProductModal();
+      });
+
+      document.getElementById('openBagBtn').addEventListener('click', openBagDrawer);
+      document.getElementById('closeBagDrawerBtn').addEventListener('click', closeBagDrawer);
+      document.getElementById('bagDrawerBackdrop').addEventListener('click', (e) => {
+        if (e.target.id === 'bagDrawerBackdrop') closeBagDrawer();
+      });
+
+      // Add to Home Screen Modal
+      const openAppGuide = () => document.getElementById('appGuideModal').classList.remove('hidden');
+      const closeAppGuide = () => document.getElementById('appGuideModal').classList.add('hidden');
+      document.getElementById('openAppGuideBtn').addEventListener('click', openAppGuide);
+      document.getElementById('footerAppGuideBtn').addEventListener('click', openAppGuide);
+      document.getElementById('closeAppGuideBtn').addEventListener('click', closeAppGuide);
+      document.getElementById('gotItAppGuideBtn').addEventListener('click', closeAppGuide);
+      document.getElementById('appGuideModal').addEventListener('click', (e) => {
+        if (e.target.id === 'appGuideModal') closeAppGuide();
+      });
+
+      // Owner / Add Item Modal
+      document.getElementById('openStoreToolsBtn').addEventListener('click', openStoreToolsModal);
+      document.getElementById('footerOpenStoreToolsBtn').addEventListener('click', openStoreToolsModal);
+      document.getElementById('closeStoreToolsBtn').addEventListener('click', closeStoreToolsModal);
+      document.getElementById('storeToolsModal').addEventListener('click', (e) => {
+        if (e.target.id === 'storeToolsModal') closeStoreToolsModal();
+      });
+
+      // Save WhatsApp & Instagram
+      document.getElementById('saveShopConfigBtn').addEventListener('click', () => {
+        state.config.whatsapp = cleanPhone(document.getElementById('cfgWhatsApp').value);
+        state.config.instagram = cleanInstaHandle(document.getElementById('cfgInstagram').value);
+        saveJson(STORAGE_KEYS.CONFIG, state.config);
+        syncSocialLinks();
+        showToast('Saved WhatsApp & Instagram connections');
+      });
+
+      // Restore Default Catalog
+      document.getElementById('resetDefaultCatalogBtn').addEventListener('click', () => {
+        state.products = [...DEFAULT_PRODUCTS];
+        saveJson(STORAGE_KEYS.PRODUCTS, state.products);
+        renderNewArrivals();
+        renderProducts();
+        showToast('Restored default Saawariya Fashion Girl catalog');
+      });
+
+      // Real Photo File Upload via FileReader
+      document.getElementById('newProdPhotoFile').addEventListener('change', (e) => {
+        const file = e.target.files && e.target.files[0];
+        if (!file) {
+          state.uploadedNewProdPhoto = '';
+          return;
+        }
+        const reader = new FileReader();
+        reader.onload = () => {
+          if (typeof reader.result === 'string') {
+            state.uploadedNewProdPhoto = reader.result;
+          }
+        };
+        reader.readAsDataURL(file);
+      });
+
+      // Add New Product Form Submit
+      document.getElementById('addProductForm').addEventListener('submit', (e) => {
+        e.preventDefault();
+        const title = document.getElementById('newProdTitle').value.trim();
+        const category = document.getElementById('newProdCategory').value;
+        const fabric = document.getElementById('newProdFabric').value;
+        const mrp = Number(document.getElementById('newProdMrp').value);
+        const price = Number(document.getElementById('newProdPrice').value);
+        const colorsRaw = document.getElementById('newProdColors').value;
+        const photoUrlInput = document.getElementById('newProdPhotoUrl').value.trim();
+        const isNewArrival = document.getElementById('newProdIsNew').checked;
+        const isFestivalOffer = document.getElementById('newProdIsFestival').checked;
+
+        const checkedSizes = Array.from(document.querySelectorAll('.new-size-chk:checked')).map((c) => c.value);
+        const sizes = checkedSizes.length ? checkedSizes : ['M', 'L', 'XL', 'XXL'];
+        const colors = colorsRaw
+          .split(',')
+          .map((c) => c.trim())
+          .filter(Boolean);
+
+        if (!title || !price || !mrp || colors.length === 0) return;
+
+        const photo =
+          state.uploadedNewProdPhoto ||
+          photoUrlInput ||
+          'https://placehold.co/500x660/FFF9F9/9B111E?text=Saawariya+Fashion+Girl';
+
+        const newItem = {
+          id: 'sfg-' + Date.now(),
+          title,
+          category,
+          fabric,
+          mrp,
+          price,
+          sizes,
+          colors,
+          photo,
+          fallbackPhoto: '',
+          isNewArrival,
+          isFestivalOffer,
+          fitNote: `${fabric} boutique collection in sizes ${sizes.join(', ')}.`,
+          careNote: 'Gentle wash or dry clean as suitable for fabric.',
+        };
+
+        state.products.unshift(newItem);
+        saveJson(STORAGE_KEYS.PRODUCTS, state.products);
+
+        state.uploadedNewProdPhoto = '';
+        e.target.reset();
+        renderNewArrivals();
+        renderProducts();
+        closeStoreToolsModal();
+        showToast(`Published "${title}" to Saawariya Fashion Girl!`);
+      });
+
+      // Customer Feedback Form Submit
+      document.getElementById('feedbackForm').addEventListener('submit', (e) => {
+        e.preventDefault();
+        const name = document.getElementById('fbName').value.trim();
+        const city = document.getElementById('fbCity').value.trim();
+        const item = document.getElementById('fbItem').value.trim();
+        const rating = Number(document.getElementById('fbRating').value || 5);
+        const comment = document.getElementById('fbComment').value.trim();
+
+        if (!name || !comment) return;
+
+        state.feedback.unshift({
+          id: 'fb-' + Date.now(),
+          name,
+          city,
+          item,
+          rating,
+          comment,
+          date: 'Just now',
+        });
+        saveJson(STORAGE_KEYS.FEEDBACK, state.feedback);
+        e.target.reset();
+        renderFeedbackList();
+        showToast('Thank you! Your feedback has been posted.');
+      });
+    }
+
+    window.addEventListener('DOMContentLoaded', init);
+  </script>
+</body>
+</html>
