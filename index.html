@@ -247,13 +247,39 @@
         </div>
 
         <div class="flex flex-wrap items-center gap-2 shrink-0">
-          <a href="#catalogSection" id="heroNewArrivalsBtn" class="px-4 py-2.5 rounded-xl bg-crimson hover:bg-crimsonBright text-pureWhite text-xs sm:text-sm font-semibold transition">
+          <a href="#newArrivalsSection" id="heroNewArrivalsBtn" class="px-4 py-2.5 rounded-xl bg-crimson hover:bg-crimsonBright text-pureWhite text-xs sm:text-sm font-semibold transition">
             New Arrivals
           </a>
           <a href="#festivalOffersSection" id="heroFestivalBtn" class="px-4 py-2.5 rounded-xl bg-pureWhite hover:bg-blushSoft text-crimson border border-crimson/25 text-xs sm:text-sm font-semibold transition">
             Festival Offers
           </a>
         </div>
+      </div>
+    </section>
+
+    <!-- 2. NEW ARRIVALS ADVERTISEMENT BANNER & SPOTLIGHT -->
+    <section id="newArrivalsSection" class="rounded-2xl sm:rounded-3xl bg-pureWhite border border-crimson/15 p-4 sm:p-6 shadow-sober space-y-4">
+      <!-- Promotional Advertisement Strip -->
+      <div class="rounded-2xl bg-blushSoft/70 border border-crimson/15 p-3.5 sm:p-4 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
+        <div>
+          <span id="newArrivalsBadge" class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-crimson text-pureWhite text-[10px] sm:text-xs font-bold uppercase tracking-wider">
+            NEW ARRIVALS • JUST LANDED
+          </span>
+          <h3 id="newArrivalsHeading" class="font-serif text-lg sm:text-2xl font-bold text-charcoal mt-1">
+            Fresh Boutique Arrivals — Studio Spotlight
+          </h3>
+          <p id="newArrivalsSub" class="text-xs sm:text-sm text-mutedText">
+            Latest pleated sharara sets, embroidered cotton kurties, designer palazzo ensembles, and floral jacket co-ords in sizes M to XXL.
+          </p>
+        </div>
+        <button type="button" id="filterNewArrivalsBtn" class="self-start sm:self-auto shrink-0 px-4 py-2 rounded-xl bg-pureWhite hover:bg-crimson hover:text-pureWhite text-crimson border border-crimson/25 text-xs font-semibold transition cursor-pointer">
+          View All in Catalog
+        </button>
+      </div>
+
+      <!-- 4 Uploaded Studio Outfits Grid -->
+      <div id="newArrivalsGrid" class="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
+        <!-- Populated via JS -->
       </div>
     </section>
 
@@ -778,8 +804,8 @@
         price: 1249,
         sizes: ['M', 'L', 'XL', 'XXL'],
         colors: ['Mustard Yellow', 'Maroon', 'Olive'],
-        photo: 'product2.jpeg',
-        fallbackPhoto: 'product2.jpeg',
+        photo: 'f4cb353b.jpeg',
+        fallbackPhoto: 'product2.jpg',
         isNewArrival: true,
         isFestivalOffer: true,
         fitNote: 'Breathable pure combed cotton straight kurti with traditional geometric yoke & straight trousers.',
@@ -941,7 +967,6 @@
     const state = {
       lang: loadJson(STORAGE_KEYS.LANG, 'en'),
       products: DEFAULT_PRODUCTS,
-
       config: {
         whatsapp: '919428477477',
         instagram: 'saawariya_fashion_girl',
@@ -1058,6 +1083,10 @@
       document.getElementById('heroSubtitle').textContent = t.heroSubtitle;
       document.getElementById('heroNewArrivalsBtn').textContent = t.heroNewArrivals;
       document.getElementById('heroFestivalBtn').textContent = t.heroFestival;
+      document.getElementById('newArrivalsBadge').textContent = t.newArrivalsBadge;
+      document.getElementById('newArrivalsHeading').textContent = t.newArrivalsHeading;
+      document.getElementById('newArrivalsSub').textContent = t.newArrivalsSub;
+      document.getElementById('filterNewArrivalsBtn').textContent = t.viewAllCatalog;
       document.getElementById('festivalBadge').textContent = t.festivalBadge;
       document.getElementById('festivalTitle').textContent = t.festivalTitle;
       document.getElementById('festivalDesc').textContent = t.festivalDesc;
@@ -1117,7 +1146,6 @@
     function renderNewArrivals() {
       const t = I18N[state.lang] || I18N.en;
       const grid = document.getElementById('newArrivalsGrid');
-      if (!grid) return;
       const items = state.products.filter((p) => p.isNewArrival).slice(0, 4);
 
       grid.innerHTML = items.map((prod) => {
@@ -1823,6 +1851,13 @@
       });
 
       // New Arrivals & Festival Offer Shortcuts
+      document.getElementById('filterNewArrivalsBtn').addEventListener('click', () => {
+        resetFilters();
+        state.sortBy = 'newest';
+        document.getElementById('sortSelect').value = 'newest';
+        renderProducts();
+        document.getElementById('catalogSection').scrollIntoView({ behavior: 'smooth' });
+      });
 
       document.getElementById('applyFestivalFilterBtn').addEventListener('click', () => {
         state.onlyFestival = true;
