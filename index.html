@@ -429,7 +429,8 @@
 
       <!-- Empty Filter Result Box -->
       <div id="emptyCatalogBox" class="hidden rounded-2xl bg-blushTint border border-crimson/15 p-8 text-center">
-        <p id="emptyCatalogTitle" class="font-serif text-lg font-bold text-crimson">No matching outfits found</p>
+        <p id="emptyCatalogTit
+          le" class="font-serif text-lg font-bold text-crimson">No matching outfits found</p>
         <p id="emptyCatalogSub" class="text-xs sm:text-sm text-mutedText mt-1">Try adjusting your category, size (M–XXL), fabric, color, or price range.</p>
         <button type="button" id="emptyCatalogResetBtn" class="mt-4 px-4 py-2 rounded-xl bg-crimson text-pureWhite text-xs sm:text-sm font-semibold cursor-pointer">
           Show All Ladies' Wear
@@ -442,10 +443,7 @@
       <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
         <!-- Write Feedback Form -->
         <div class="lg:col-span-5 bg-pureWhite rounded-2xl p-4 sm:p-5 border border-crimson/15">
-          <h3 id="feedbackFormHeading" class="font-serif text-lg sm:text-xl font-bold text-crimson">
-            Write Feedback
-          </h3>
-          <p id="feedbackFormSub" class="text-xs text-mutedText mt-1 mb-4">
+            <p id="feedbackFormSub" class="text-xs text-mutedText mt-1 mb-4">
             Share your experience with Saawariya Fashion Girl outfits, fabric comfort, and size fitting (M–XXL).
           </p>
 
@@ -828,7 +826,6 @@
         lblFabric: 'Fabric Used',
         lblColor: 'Color',
         lblMaxPrice: 'Max Price',
-        feedbackFormHeading: 'Write Feedback',
         feedbackFormSub: 'Share your experience with Saawariya Fashion Girl outfits, fabric comfort, and size fitting (M–XXL).',
         lblFbName: 'Your Name *',
         lblFbCity: 'City',
@@ -881,7 +878,6 @@
         lblFabric: 'फैब्रिक',
         lblColor: 'रंग',
         lblMaxPrice: 'अधिकतम कीमत',
-        feedbackFormHeading: 'अपना फीडबैक लिखें',
         feedbackFormSub: 'सांवरिया फैशन गर्ल के आउटफिट, फैब्रिक और फिटिंग (M–XXL) के बारे में अपना अनुभव साझा करें।',
         lblFbName: 'आपका नाम *',
         lblFbCity: 'शहर',
@@ -934,7 +930,6 @@
         lblFabric: 'કાપડ',
         lblColor: 'રંગ',
         lblMaxPrice: 'મહત્તમ કિંમત',
-        feedbackFormHeading: 'તમારો પ્રતિભાવ લખો',
         feedbackFormSub: 'સાંવરિયા ફેશન ગર્લના આઉટફિટ, કાપડ અને ફિટિંગ (M–XXL) વિશે તમારો અનુભવ જણાવો.',
         lblFbName: 'તમારું નામ *',
         lblFbCity: 'શહેર',
@@ -1329,7 +1324,6 @@
       document.getElementById('lblFilterFabric').textContent = t.lblFabric;
       document.getElementById('lblFilterColor').textContent = t.lblColor;
       document.getElementById('lblMaxPrice').textContent = t.lblMaxPrice;
-      document.getElementById('feedbackFormHeading').textContent = t.feedbackFormHeading;
       document.getElementById('feedbackFormSub').textContent = t.feedbackFormSub;
       document.getElementById('lblFbName').textContent = t.lblFbName;
       document.getElementById('lblFbCity').textContent = t.lblFbCity;
@@ -1344,7 +1338,6 @@
       renderCategoryTabs();
       renderNewArrivals();
       renderProducts();
-      renderFeedbackList();
       updateBagBadge();
     }
 
@@ -2031,12 +2024,7 @@
     // =========================================================================
     // 7. CUSTOMER FEEDBACK SECTION
     // =========================================================================
-    function renderFeedbackList() {
-      const container = document.getElementById('feedbackListContainer');
-      const badge = document.getElementById('feedbackCountBadge');
-      badge.textContent = `${state.feedback.length} ${state.feedback.length === 1 ? 'Review' : 'Reviews'}`;
-
-      if (state.feedback.length === 0) {
+       if (state.feedback.length === 0) {
         container.innerHTML = `
           <div class="rounded-2xl bg-pureWhite border border-crimson/15 p-5 text-center text-xs text-mutedText">
             No reviews yet. Be the first to write feedback!
