@@ -1188,8 +1188,7 @@
     const state = {
       lang: loadJson(STORAGE_KEYS.LANG, 'en'),
       products: loadJson(STORAGE_KEYS.PRODUCTS, DEFAULT_PRODUCTS),
-      feedback: loadJson(STORAGE_KEYS.FEEDBACK, DEFAULT_FEEDBACK),
-      config: loadJson(STORAGE_KEYS.CONFIG, {
+        config: loadJson(STORAGE_KEYS.CONFIG, {
         whatsapp: '919428477477',
         instagram: 'saawariya_fashion_girl',
       }),
@@ -2292,33 +2291,7 @@
         showToast(`Published "${title}" to Saawariya Fashion Girl!`);
       });
 
-      // Customer Feedback Form Submit
-      document.getElementById('feedbackForm').addEventListener('submit', (e) => {
-        e.preventDefault();
-        const name = document.getElementById('fbName').value.trim();
-        const city = document.getElementById('fbCity').value.trim();
-        const item = document.getElementById('fbItem').value.trim();
-        const rating = Number(document.getElementById('fbRating').value || 5);
-        const comment = document.getElementById('fbComment').value.trim();
-
-        if (!name || !comment) return;
-
-        state.feedback.unshift({
-          id: 'fb-' + Date.now(),
-          name,
-          city,
-          item,
-          rating,
-          comment,
-          date: 'Just now',
-        });
-        saveJson(STORAGE_KEYS.FEEDBACK, state.feedback);
-        e.target.reset();
-        renderFeedbackList();
-        showToast('Thank you! Your feedback has been posted.');
-      });
-    }
-
+      
     window.addEventListener('DOMContentLoaded', init);
   </script>
 </body>
